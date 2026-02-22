@@ -1,0 +1,51 @@
+[
+  {
+    "mode": "transcript",
+    "companyName": "BluePeak Field Services",
+    "leadScore": 85,
+    "worthChasing": true,
+    "dealRisk": "Medium",
+    "result": {
+      "leadScore": 85,
+      "leadScoreReasoning": "The buyer is actively evaluating options due to dissatisfaction with their current provider and has a clear budget and timeline for decision-making.",
+      "worthChasing": true,
+      "worthChasingReasoning": "The buyer's urgency and specific needs align well with the solution offered, indicating a strong potential for conversion.",
+      "dealRisk": "Medium",
+      "dealRiskReasoning": "The buyer is considering another provider, which introduces competition and could impact the decision-making process.",
+      "closeForecast": 75,
+      "closeForecastReasoning": "The buyer has expressed interest in a proposal and is involving a decision-maker, but competition and the need for a side-by-side comparison could delay the close.",
+      "buyingSignals": [
+        {
+          "signal": "Urgency to switch providers due to performance issues.",
+          "evidence": "Yes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work."
+        },
+        {
+          "signal": "Clear budget allocation for mobile and data services.",
+          "evidence": "We’re currently spending around $6,500 per month."
+        },
+        {
+          "signal": "Defined timeline for decision-making.",
+          "evidence": "Our contracts expire in about 75 days, so we’d like to make a decision within the next month."
+        }
+      ],
+      "objections": [
+        {
+          "objection": "Considering another provider.",
+          "evidence": "Yes, we’ve had an initial conversation with AT&T as well."
+        }
+      ],
+      "nextSteps": [
+        "Send the proposal and coverage maps to the buyer.",
+        "Schedule a follow-up meeting for Thursday afternoon with the Director of Operations.",
+        "Prepare a side-by-side coverage comparison and pricing breakdown."
+      ],
+      "followUpEmail": "Subject: Follow-Up on Our Meeting\n\nHi James,\n\nThank you for taking the time to meet with me today. I appreciate your insights regarding your current mobile and data plans. As discussed, I will send over the proposal and coverage maps shortly. I look forward to our follow-up meeting on Thursday afternoon with your Director of Operations to review the side-by-side comparison and pricing breakdown.\n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n\n[Your Name]  \n[Your Position]  \nBluePeak Field Services  \n[Your Contact Information]",
+      "coachingSummary": "You did a great job identifying the buyer's pain points and establishing a clear timeline for decision-making. However, it would be beneficial to probe deeper into the buyer's experience with competitors to better position your offering. Additionally, ensure that you maintain engagement with the buyer to mitigate the risk of them leaning towards the competitor."
+    },
+    "transcript": "Rep:\nThanks for joining today, James. I understand you're reviewing your company’s mobile and data plans ahead of contract renewal. Can you share what’s driving that evaluation?\nBuyer (James – IT Manager):\nYes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work. We’ve also had some unexpected billing increases over the past few months.\nRep:\nThat’s helpful. How many active lines are we talking about?\nBuyer:\nAbout 48 mobile lines and 12 data-only SIMs for tablets.\nRep:\nGot it. Are the coverage issues impacting daily operations?\nBuyer:\nYes, especially when teams can’t upload reports from job sites. It delays invoicing and sometimes affects customer satisfaction.\nRep:\nUnderstood. Have you allocated a budget range for switching providers?\nBuyer:\nWe’re currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us.\nRep:\nAnd who would be involved in approving a change?\nBuyer:\nI’ll handle the technical evaluation, but our Director of Operations will approve the final decision.\nRep:\nAre you speaking with other providers?\nBuyer:\nYes, we’ve had an initial conversation with AT&T as well.\nRep:\nWhat timeline are you working toward?\nBuyer:\nOur contracts expire in about 75 days, so we’d like to make a decision within the next month.\nRep:\nThat makes sense. Would it be helpful to review a side-by-side coverage comparison and pricing breakdown with your Director next week?\nBuyer:\nYes, that would be ideal. If you send over the proposal and schedule something for Thursday afternoon, I’ll include him.\nRep:\nPerfect. I’ll send that today along with coverage maps.\nBuyer:\nGreat, looking forward to reviewing it.",
+    "dealStage": "Demo",
+    "dealAmount": "$78,000 annually",
+    "id": "h-1-1771718194032",
+    "timestamp": 1771718194032
+  }
+]

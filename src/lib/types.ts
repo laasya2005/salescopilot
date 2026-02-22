@@ -1,0 +1,81 @@
+export interface BuyingSignal {
+  signal: string;
+  evidence: string;
+}
+
+export interface Objection {
+  objection: string;
+  evidence: string;
+}
+
+export interface AnalysisResult {
+  leadScore: number;
+  leadScoreReasoning: string;
+  worthChasing: boolean;
+  worthChasingReasoning: string;
+  dealRisk: "Low" | "Medium" | "High";
+  dealRiskReasoning: string;
+  closeForecast: number;
+  closeForecastReasoning: string;
+  buyingSignals: BuyingSignal[];
+  objections: Objection[];
+  nextSteps: string[];
+  followUpEmail: string;
+  coachingSummary: string;
+}
+
+export type InputMode = "transcript" | "email-thread" | "event-form" | "batch";
+
+export type BudgetStatus = "Yes" | "No" | "Unsure" | "";
+export type DecisionMaker = "Them" | "Someone Else" | "Unknown" | "";
+export type Timeline = "Immediate" | "This Quarter" | "This Year" | "Just Exploring" | "";
+export type InterestLevel = "Hot" | "Warm" | "Cold" | "";
+
+export interface EventFormData {
+  prospectName: string;
+  prospectTitle: string;
+  companyName: string;
+  eventName: string;
+  painPoint: string;
+  budget: BudgetStatus;
+  budgetNotes: string;
+  decisionMaker: DecisionMaker;
+  decisionMakerName: string;
+  timeline: Timeline;
+  competitorsMentioned: string;
+  interestLevel: InterestLevel;
+  nextStepsDiscussed: string;
+  notableQuotes: string;
+  additionalNotes: string;
+}
+
+export interface HistoryEntry {
+  id: string;
+  timestamp: number;
+  mode: InputMode;
+  companyName: string;
+  leadScore: number;
+  worthChasing: boolean;
+  dealRisk: "Low" | "Medium" | "High";
+  result: AnalysisResult;
+  // Restoration data
+  transcript?: string;
+  dealStage?: string;
+  dealAmount?: string;
+  threadContext?: string;
+  eventForm?: EventFormData;
+}
+
+export type BatchItemStatus = "pending" | "processing" | "completed" | "error";
+
+export interface BatchItem {
+  id: string;
+  transcript: string;
+  preview: string;
+  companyName: string;
+  dealStage: string;
+  dealAmount: string;
+  status: BatchItemStatus;
+  result?: AnalysisResult;
+  error?: string;
+}
