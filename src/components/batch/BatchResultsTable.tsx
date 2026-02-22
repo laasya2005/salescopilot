@@ -118,7 +118,7 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
               {/* Expanded Details */}
               {isExpanded && (
                 <div className="px-6 py-6 border-b border-slate-800/50 bg-slate-950/30">
-                  <AnalysisResults result={r} />
+                  <AnalysisResults result={r} transcript={item.transcript} companyName={item.companyName} dealStage={item.dealStage} />
                 </div>
               )}
             </div>
@@ -201,7 +201,7 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
               </div>
               {isExpanded && (
                 <div className="px-4 pb-4 pt-2 border-t border-slate-800/50 bg-slate-950/30">
-                  <AnalysisResults result={r} />
+                  <AnalysisResults result={r} transcript={item.transcript} companyName={item.companyName} dealStage={item.dealStage} />
                 </div>
               )}
             </div>

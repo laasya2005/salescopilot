@@ -2,12 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const { coachingSummary } = await req.json();
+    const { text, coachingSummary } = await req.json();
 
-    if (!coachingSummary) {
+    // Accept either "text" (new) or "coachingSummary" (legacy) param
+    const speechText = text || coachingSummary;
+
+    if (!speechText || typeof speechText !== "string") {
       return NextResponse.json(
-        { error: "Coaching summary text is required." },
+        { error: "Text is required." },
         { status: 400 }
+      );
+    }
+
+    if (speechText.length > 5000) {
+      return NextResponse.json(
+        { error: "Text exceeds maximum length of 5000 characters." },
+        { status: 413 }
       );
     }
 
@@ -31,11 +41,13 @@ export async function POST(req: NextRequest) {
           Accept: "audio/mpeg",
         },
         body: JSON.stringify({
-          text: coachingSummary,
-          model_id: "eleven_flash_v2_5",
+          text: speechText,
+          model_id: "eleven_multilingual_v2",
           voice_settings: {
-            stability: 0.5,
-            similarity_boost: 0.75,
+            stability: 0.6,
+            similarity_boost: 0.8,
+            style: 0.35,
+            use_speaker_boost: true,
           },
         }),
       }

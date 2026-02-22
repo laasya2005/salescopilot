@@ -21,6 +21,7 @@ function validateAnalysisResult(data: unknown): data is Record<string, unknown> 
   if (!Array.isArray(obj.nextSteps)) return false;
   if (typeof obj.followUpEmail !== "string") return false;
   if (typeof obj.coachingSummary !== "string") return false;
+  if (obj.suggestedQuestions !== undefined && !Array.isArray(obj.suggestedQuestions)) return false;
 
   return true;
 }
@@ -140,7 +141,10 @@ Respond ONLY with valid JSON in the following exact format (no markdown, no code
     "<actionable next step>"
   ],
   "followUpEmail": "<a professional follow-up email draft>",
-  "coachingSummary": "<a 3-5 sentence coaching summary for the sales rep, highlighting what they did well and what they could improve>"
+  "coachingSummary": "<a 3-5 sentence coaching summary for the sales rep, highlighting what they did well and what they could improve>",
+  "suggestedQuestions": [
+    { "question": "<specific question the rep should ask>", "reason": "<why this matters>" }
+  ]
 }
 
 Guidelines:
@@ -150,7 +154,8 @@ Guidelines:
 ${evidenceGuideline}
 - nextSteps: 3-5 specific, actionable steps with clear owners where possible.
 - followUpEmail: Professional, references specific discussion points, includes clear CTA.
-- coachingSummary: Constructive feedback on the sales rep's performance in this ${interactionWord}.`;
+- coachingSummary: Constructive feedback on the sales rep's performance in this ${interactionWord}.
+- suggestedQuestions: 3-5 discovery questions the rep should have asked or should ask next. Focus on uncovering budget, authority, need, timeline, or competitive landscape. Each "reason" explains why that question matters for THIS specific deal.`;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",

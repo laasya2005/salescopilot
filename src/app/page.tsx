@@ -506,7 +506,7 @@ export default function Home() {
               onAnalyze={handleTranscriptAnalyze}
             />
 
-            {transcriptResult && <AnalysisResults result={transcriptResult} />}
+            {transcriptResult && <AnalysisResults result={transcriptResult} transcript={transcript} companyName={companyName} dealStage={dealStage} />}
 
             {transcriptLoading && <LoadingSkeleton />}
 
@@ -542,7 +542,7 @@ export default function Home() {
               onAnalyze={handleEmailAnalyze}
             />
 
-            {emailResult && <AnalysisResults result={emailResult} />}
+            {emailResult && <AnalysisResults result={emailResult} transcript={emailThread} companyName={emailCompanyName} dealStage={emailDealStage} source="email-thread" />}
 
             {emailLoading && <LoadingSkeleton />}
 
@@ -570,7 +570,7 @@ export default function Home() {
               onAnalyze={handleEventFormAnalyze}
             />
 
-            {eventResult && <AnalysisResults result={eventResult} />}
+            {eventResult && <AnalysisResults result={eventResult} transcript={eventFormToTranscript(eventForm)} companyName={eventForm.companyName} dealStage="Discovery" source="event-form" />}
 
             {eventLoading && <LoadingSkeleton />}
 

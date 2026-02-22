@@ -8,6 +8,23 @@ export interface Objection {
   evidence: string;
 }
 
+export interface SuggestedQuestion {
+  question: string;
+  reason: string;
+}
+
+export interface CoachingScript {
+  script: string;
+  sections: {
+    greeting: string;
+    strengths: string[];
+    improvements: string[];
+    missedQuestions: { question: string; why: string }[];
+    nextCallQuestions: { question: string; why: string }[];
+    closing: string;
+  };
+}
+
 export interface AnalysisResult {
   leadScore: number;
   leadScoreReasoning: string;
@@ -22,6 +39,7 @@ export interface AnalysisResult {
   nextSteps: string[];
   followUpEmail: string;
   coachingSummary: string;
+  suggestedQuestions?: SuggestedQuestion[];
 }
 
 export type InputMode = "transcript" | "email-thread" | "event-form" | "batch";

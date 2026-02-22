@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import type { AnalysisResult } from "@/lib/types";
+import type { AnalysisResult, CoachingScript } from "@/lib/types";
 import { ScoreRing } from "@/components/ui/ScoreRing";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { useCopyToClipboard } from "@/lib/use-copy-to-clipboard";
@@ -17,15 +17,29 @@ function getScoreColor(value: number): string {
   return "#f43f5e";                  // rose-500 — Critical
 }
 
-export function AnalysisResults({ result }: { result: AnalysisResult }) {
+interface AnalysisResultsProps {
+  result: AnalysisResult;
+  transcript?: string;
+  companyName?: string;
+  dealStage?: string;
+  source?: string;
+}
+
+export function AnalysisResults({ result, transcript, companyName, dealStage, source }: AnalysisResultsProps) {
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [voiceLoading, setVoiceLoading] = useState(false);
   const [voiceError, setVoiceError] = useState("");
+  const [voiceLoadingStep, setVoiceLoadingStep] = useState("");
+  const [coachingScript, setCoachingScript] = useState<CoachingScript | null>(null);
+  const [showCoachingNotes, setShowCoachingNotes] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const { copy, copied } = useCopyToClipboard();
 
   const [showAllSignals, setShowAllSignals] = useState(false);
   const [showAllObjections, setShowAllObjections] = useState(false);
+
+  // Pre-generated coaching script cached from background fetch
+  const prefetchPromiseRef = useRef<Promise<CoachingScript | null> | null>(null);
 
   // Revoke the Object URL when the component unmounts or audioUrl changes
   useEffect(() => {
@@ -36,15 +50,60 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
     };
   }, [audioUrl]);
 
+  // Pre-generate coaching script in background as soon as results mount
+  useEffect(() => {
+    if (!transcript || !companyName) return;
+    const controller = new AbortController();
+
+    prefetchPromiseRef.current = fetch("/api/coaching-script", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        transcript,
+        companyName,
+        dealStage: dealStage || "Discovery",
+        source: source || undefined,
+        analysisResult: result,
+      }),
+      signal: controller.signal,
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: CoachingScript | null) => {
+        if (data?.script && data.script.length >= 100) return data;
+        return null;
+      })
+      .catch(() => null);
+
+    return () => controller.abort();
+  }, [transcript, companyName, dealStage, source, result]);
+
   async function handleVoiceCoaching() {
     if (!result.coachingSummary) return;
     setVoiceLoading(true);
     setVoiceError("");
+
+    // Await pre-generated script if available, fallback to coachingSummary
+    let speechText = result.coachingSummary;
+    if (prefetchPromiseRef.current) {
+      try {
+        setVoiceLoadingStep("Generating Personalized Coaching...");
+        const cached = await prefetchPromiseRef.current;
+        if (cached) {
+          speechText = cached.script;
+          setCoachingScript(cached);
+        }
+      } catch {
+        // Fallback to coachingSummary
+      }
+    }
+
+    // Convert to audio
     try {
+      setVoiceLoadingStep("Converting to Audio...");
       const res = await fetch("/api/voice-coaching", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ coachingSummary: result.coachingSummary }),
+        body: JSON.stringify({ text: speechText }),
       });
       if (!res.ok) {
         const errData = await res.json();
@@ -58,11 +117,12 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
       }
       const url = URL.createObjectURL(blob);
       setAudioUrl(url);
-      setTimeout(() => { audioRef.current?.play(); }, 100);
+      setTimeout(() => { audioRef.current?.play().catch(() => {}); }, 100);
     } catch {
       setVoiceError("Failed to generate voice coaching.");
     } finally {
       setVoiceLoading(false);
+      setVoiceLoadingStep("");
     }
   }
 
@@ -75,6 +135,8 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
     ? result.objections
     : result.objections.slice(0, INITIAL_SHOW);
   const hiddenObjectionCount = result.objections.length - INITIAL_SHOW;
+
+  const suggestedQuestions = result.suggestedQuestions || [];
 
   return (
     <div className="space-y-6">
@@ -215,6 +277,26 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
         </div>
       </div>
 
+      {/* Questions You Should Ask */}
+      {suggestedQuestions.length > 0 && (
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+          <h3 className="text-sm font-semibold text-cyan-400 mb-4 flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Questions You Should Ask
+          </h3>
+          <div className="space-y-3">
+            {suggestedQuestions.map((q, i) => (
+              <div key={i} className="bg-slate-950/50 rounded-lg p-3 border border-slate-800">
+                <p className="text-sm text-white font-medium">{q.question}</p>
+                <p className="text-xs text-slate-400 mt-1">{q.reason}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Follow-up Email */}
       <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
         <div className="flex items-center justify-between mb-4">
@@ -277,7 +359,7 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Generating Voice...
+                  {voiceLoadingStep || "Generating Voice..."}
                 </>
               ) : (
                 <>
@@ -290,11 +372,96 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
               )}
             </button>
             {voiceLoading && (
-              <p className="text-xs text-slate-500 mt-2">This usually takes 5-10 seconds</p>
+              <p className="text-xs text-slate-500 mt-2">Converting coaching to audio — this usually takes 5-10 seconds</p>
             )}
           </div>
         ) : (
-          <audio ref={audioRef} controls src={audioUrl} className="w-full mt-2" />
+          <div className="space-y-4">
+            <audio ref={audioRef} controls src={audioUrl} className="w-full mt-2" />
+
+            {/* Coaching Notes Toggle */}
+            {coachingScript && (
+              <div>
+                <button
+                  onClick={() => setShowCoachingNotes((v) => !v)}
+                  className="text-xs text-violet-300 hover:text-white hover:bg-violet-500/10 px-3 py-2 rounded-lg transition-colors flex items-center gap-1.5 border border-violet-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+                >
+                  <svg className={`w-3.5 h-3.5 transition-transform ${showCoachingNotes ? "rotate-90" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  {showCoachingNotes ? "Hide Coaching Notes" : "Read Coaching Notes"}
+                </button>
+
+                {showCoachingNotes && (
+                  <div className="mt-4 space-y-4">
+                    {/* Strengths */}
+                    {coachingScript.sections.strengths.length > 0 && (
+                      <div className="bg-emerald-500/5 rounded-lg p-4 border border-emerald-500/20">
+                        <h4 className="text-xs font-semibold text-emerald-400 mb-2 uppercase tracking-wider">Strengths</h4>
+                        <ul className="space-y-1.5">
+                          {coachingScript.sections.strengths.map((s, i) => (
+                            <li key={i} className="text-sm text-slate-300 flex items-start gap-2">
+                              <svg className="w-3.5 h-3.5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                              </svg>
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Improvements */}
+                    {coachingScript.sections.improvements.length > 0 && (
+                      <div className="bg-amber-500/5 rounded-lg p-4 border border-amber-500/20">
+                        <h4 className="text-xs font-semibold text-amber-400 mb-2 uppercase tracking-wider">Areas to Improve</h4>
+                        <ul className="space-y-1.5">
+                          {coachingScript.sections.improvements.map((s, i) => (
+                            <li key={i} className="text-sm text-slate-300 flex items-start gap-2">
+                              <svg className="w-3.5 h-3.5 text-amber-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01" />
+                              </svg>
+                              {s}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Missed Questions */}
+                    {coachingScript.sections.missedQuestions.length > 0 && (
+                      <div className="bg-cyan-500/5 rounded-lg p-4 border border-cyan-500/20">
+                        <h4 className="text-xs font-semibold text-cyan-400 mb-2 uppercase tracking-wider">Questions You Missed</h4>
+                        <div className="space-y-2">
+                          {coachingScript.sections.missedQuestions.map((q, i) => (
+                            <div key={i} className="bg-slate-950/30 rounded-lg p-2.5 border border-slate-800">
+                              <p className="text-sm text-white font-medium">{q.question}</p>
+                              <p className="text-xs text-slate-400 mt-1">{q.why}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Next Call Questions */}
+                    {coachingScript.sections.nextCallQuestions.length > 0 && (
+                      <div className="bg-indigo-500/5 rounded-lg p-4 border border-indigo-500/20">
+                        <h4 className="text-xs font-semibold text-indigo-400 mb-2 uppercase tracking-wider">Questions for Next Call</h4>
+                        <div className="space-y-2">
+                          {coachingScript.sections.nextCallQuestions.map((q, i) => (
+                            <div key={i} className="bg-slate-950/30 rounded-lg p-2.5 border border-slate-800">
+                              <p className="text-sm text-white font-medium">{q.question}</p>
+                              <p className="text-xs text-slate-400 mt-1">{q.why}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
