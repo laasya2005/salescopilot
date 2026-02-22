@@ -66,6 +66,15 @@ function scoreEntry(query: string, entry: HistoryEntry): number {
     }
   }
 
+  // Financial keywords boost
+  const financialKeywords = ["budget", "arr", "mrr", "revenue", "pipeline", "roi", "pricing", "competitor", "discount", "contract", "spend", "payback"];
+  for (const kw of financialKeywords) {
+    if (queryLower.includes(kw)) {
+      score += 15;
+      break;
+    }
+  }
+
   // Mode preference boost
   for (const [mode, keywords] of Object.entries(MODE_KEYWORDS)) {
     if (keywords.some((k) => queryLower.includes(k)) && entry.mode === mode) {
@@ -98,6 +107,20 @@ function formatEntrySummary(entry: HistoryEntry): string {
 
   if (entry.dealStage) lines.push(`Deal Stage: ${entry.dealStage}`);
   if (entry.dealAmount) lines.push(`Deal Amount: $${entry.dealAmount}`);
+
+  // Financial data
+  const fa = entry.result?.financialAnalysis;
+  if (fa) {
+    const parts: string[] = [];
+    if (fa.dealEconomics.weightedPipelineValue != null) parts.push(`Pipeline: $${fa.dealEconomics.weightedPipelineValue.toLocaleString()}`);
+    if (fa.dealEconomics.extractedAnnualSpend != null) parts.push(`ARR: $${fa.dealEconomics.extractedAnnualSpend.toLocaleString()}`);
+    if (fa.budgetHealth.status) parts.push(`Budget: ${fa.budgetHealth.status}`);
+    if (fa.revenueRisk.overallScore != null) parts.push(`Revenue Risk: ${fa.revenueRisk.overallScore}/100`);
+    if (fa.competitivePricing.competitorsDetected.length > 0) {
+      parts.push(`Competitors: ${fa.competitivePricing.competitorsDetected.map((c) => c.competitor).join(", ")}`);
+    }
+    if (parts.length > 0) lines.push(`Financial: ${parts.join(" | ")}`);
+  }
 
   if (entry.result?.nextSteps?.length) {
     lines.push(`Next Steps: ${entry.result.nextSteps.slice(0, 3).join("; ")}`);

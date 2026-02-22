@@ -192,6 +192,50 @@ export function InteractionTimeline({
                     </div>
                   )}
 
+                  {/* Financial Insights */}
+                  {entry.result?.financialAnalysis && (() => {
+                    const fa = entry.result.financialAnalysis!;
+                    const pv = fa.dealEconomics.weightedPipelineValue;
+                    const bh = fa.budgetHealth.status;
+                    const rr = fa.revenueRisk.overallScore;
+                    const comps = fa.competitivePricing.competitorsDetected;
+                    const budgetColor =
+                      bh === "Confirmed" ? "text-emerald-400" :
+                      bh === "Exploring" ? "text-blue-400" :
+                      bh === "Constrained" ? "text-amber-400" :
+                      "text-rose-400";
+                    const riskColor =
+                      rr <= 25 ? "text-emerald-400" :
+                      rr <= 50 ? "text-yellow-400" :
+                      rr <= 75 ? "text-orange-400" :
+                      "text-rose-400";
+                    return (
+                      <div>
+                        <h4 className="text-xs font-semibold text-teal-400 mb-2">Financial Insights</h4>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="bg-slate-950/50 rounded-lg p-2 border border-slate-800 text-center">
+                            <p className="text-[10px] text-slate-500">Pipeline</p>
+                            <p className="text-sm font-bold text-white">
+                              {pv != null ? (pv >= 1_000_000 ? `$${(pv / 1_000_000).toFixed(1)}M` : pv >= 1_000 ? `$${(pv / 1_000).toFixed(0)}K` : `$${pv}`) : "N/A"}
+                            </p>
+                          </div>
+                          <div className="bg-slate-950/50 rounded-lg p-2 border border-slate-800 text-center">
+                            <p className="text-[10px] text-slate-500">Budget</p>
+                            <p className={`text-sm font-bold ${budgetColor}`}>{bh}</p>
+                          </div>
+                          <div className="bg-slate-950/50 rounded-lg p-2 border border-slate-800 text-center">
+                            <p className="text-[10px] text-slate-500">Revenue Risk</p>
+                            <p className={`text-sm font-bold ${riskColor}`}>{rr}/100</p>
+                          </div>
+                          <div className="bg-slate-950/50 rounded-lg p-2 border border-slate-800 text-center">
+                            <p className="text-[10px] text-slate-500">Competitors</p>
+                            <p className="text-sm font-bold text-white">{comps.length > 0 ? comps.map((c) => c.competitor).join(", ") : "None"}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
                   {/* Coaching summary */}
                   {entry.result?.coachingSummary && (
                     <div>

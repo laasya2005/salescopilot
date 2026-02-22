@@ -25,6 +25,73 @@ export interface CoachingScript {
   };
 }
 
+/* ── Financial Intelligence Types ── */
+
+export type BudgetHealth = "Confirmed" | "Exploring" | "Constrained" | "No Budget";
+
+export interface DealEconomics {
+  extractedMonthlySpend: number | null;
+  extractedAnnualSpend: number | null;
+  contractTermMonths: number | null;
+  totalContractValue: number | null;
+  weightedPipelineValue: number | null;
+  reasoning: string;
+}
+
+export interface RevenueRiskItem {
+  risk: string;
+  severity: "Low" | "Medium" | "High";
+  evidence: string;
+}
+
+export interface RevenueRiskAssessment {
+  overallScore: number;
+  budgetConstraintSeverity: "None" | "Mild" | "Moderate" | "Severe";
+  paymentDelayLikelihood: "Low" | "Medium" | "High";
+  cancellationRisk: "Low" | "Medium" | "High";
+  risks: RevenueRiskItem[];
+  reasoning: string;
+}
+
+export interface CompetitorPriceIntel {
+  competitor: string;
+  mentionedPrice: string | null;
+  discountPressure: boolean;
+  context: string;
+}
+
+export interface CompetitivePricingIntelligence {
+  competitorsDetected: CompetitorPriceIntel[];
+  discountPressureLevel: "None" | "Low" | "Medium" | "High";
+  priceSensitivitySignal: string;
+  reasoning: string;
+}
+
+export interface ROIPaybackAnalysis {
+  prospectCurrentCost: string | null;
+  prospectExpectedSavings: string | null;
+  impliedROIPercent: number | null;
+  paybackPeriodMonths: number | null;
+  dataConfidence: "High" | "Medium" | "Low" | "Insufficient";
+  reasoning: string;
+}
+
+export interface BudgetHealthIndicator {
+  status: BudgetHealth;
+  approvalProcess: string | null;
+  fiscalYearTiming: string | null;
+  budgetOwner: string | null;
+  reasoning: string;
+}
+
+export interface FinancialAnalysis {
+  dealEconomics: DealEconomics;
+  revenueRisk: RevenueRiskAssessment;
+  competitivePricing: CompetitivePricingIntelligence;
+  roiPayback: ROIPaybackAnalysis;
+  budgetHealth: BudgetHealthIndicator;
+}
+
 export interface AnalysisResult {
   leadScore: number;
   leadScoreReasoning: string;
@@ -40,6 +107,7 @@ export interface AnalysisResult {
   followUpEmail: string;
   coachingSummary: string;
   suggestedQuestions?: SuggestedQuestion[];
+  financialAnalysis?: FinancialAnalysis;
 }
 
 export type InputMode = "transcript" | "email-thread" | "event-form" | "batch";

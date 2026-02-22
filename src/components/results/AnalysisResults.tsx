@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import type { AnalysisResult, CoachingScript } from "@/lib/types";
+import type { AnalysisResult, CoachingScript, BudgetHealth } from "@/lib/types";
 import { ScoreRing } from "@/components/ui/ScoreRing";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { useCopyToClipboard } from "@/lib/use-copy-to-clipboard";
@@ -17,6 +17,37 @@ function getScoreColor(value: number): string {
   if (value >= 41) return "#eab308"; // yellow-500 — Moderate
   if (value >= 26) return "#f97316"; // orange-500 — Low
   return "#f43f5e";                  // rose-500 — Critical
+}
+
+function formatCurrency(value: number | null | undefined): string {
+  if (value == null) return "N/A";
+  if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 1_000) return `$${(value / 1_000).toFixed(0)}K`;
+  return `$${value.toLocaleString()}`;
+}
+
+function getBudgetHealthColor(status: BudgetHealth): string {
+  switch (status) {
+    case "Confirmed": return "bg-emerald-500/15 text-emerald-400 border-emerald-500/20";
+    case "Exploring": return "bg-blue-500/15 text-blue-400 border-blue-500/20";
+    case "Constrained": return "bg-amber-500/15 text-amber-400 border-amber-500/20";
+    case "No Budget": return "bg-rose-500/15 text-rose-400 border-rose-500/20";
+    default: return "bg-slate-500/15 text-slate-400 border-slate-500/20";
+  }
+}
+
+function getRiskScoreColor(value: number): string {
+  if (value <= 25) return "text-emerald-400";
+  if (value <= 50) return "text-yellow-400";
+  if (value <= 75) return "text-orange-400";
+  return "text-rose-400";
+}
+
+function getRiskScoreBg(value: number): string {
+  if (value <= 25) return "bg-emerald-400";
+  if (value <= 50) return "bg-yellow-400";
+  if (value <= 75) return "bg-orange-400";
+  return "bg-rose-400";
 }
 
 interface AnalysisResultsProps {
@@ -223,6 +254,214 @@ export function AnalysisResults({ result, transcript, companyName, dealStage, so
           <p className="text-xs text-slate-400 mt-1 text-center">{result.closeForecastReasoning}</p>
         </div>
       </div>
+
+      {/* Financial Intelligence */}
+      {result.financialAnalysis && (() => {
+        const fa = result.financialAnalysis!;
+        const de = fa.dealEconomics;
+        const rr = fa.revenueRisk;
+        const cp = fa.competitivePricing;
+        const roi = fa.roiPayback;
+        const bh = fa.budgetHealth;
+
+        return (
+          <div className="space-y-4">
+            {/* Section Header */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
+                <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-sm font-semibold text-white tracking-wide uppercase">Financial Intelligence</h2>
+            </div>
+
+            {/* Top Row: 4-column key metrics */}
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+              {/* Pipeline Value */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 text-center">
+                <p className="text-xs text-slate-400 mb-1">Pipeline Value</p>
+                <p className="text-xl font-bold text-white">{formatCurrency(de.weightedPipelineValue)}</p>
+                <p className="text-[10px] text-slate-500 mt-1">Weighted by close %</p>
+              </div>
+
+              {/* MRR / ARR */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 text-center">
+                <p className="text-xs text-slate-400 mb-1">MRR / ARR</p>
+                <p className="text-xl font-bold text-white">
+                  {formatCurrency(de.extractedMonthlySpend)}
+                </p>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  {de.extractedAnnualSpend != null ? `${formatCurrency(de.extractedAnnualSpend)}/yr` : "Annual N/A"}
+                </p>
+              </div>
+
+              {/* TCV */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 text-center">
+                <p className="text-xs text-slate-400 mb-1">Total Contract Value</p>
+                <p className="text-xl font-bold text-white">{formatCurrency(de.totalContractValue)}</p>
+                <p className="text-[10px] text-slate-500 mt-1">
+                  {de.contractTermMonths != null ? `${de.contractTermMonths}mo term` : "Term N/A"}
+                </p>
+              </div>
+
+              {/* Budget Health */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 text-center">
+                <p className="text-xs text-slate-400 mb-1">Budget Health</p>
+                <span className={`inline-block text-sm font-semibold px-3 py-1 rounded-full border mt-1 ${getBudgetHealthColor(bh.status)}`}>
+                  {bh.status}
+                </span>
+                {bh.budgetOwner && (
+                  <p className="text-[10px] text-slate-500 mt-2 truncate">Owner: {bh.budgetOwner}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Middle Row: Revenue Risk + Competitive Pricing */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Revenue Risk Assessment */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+                <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                  Revenue Risk
+                </h3>
+
+                {/* Risk Score */}
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                    <div className={`h-full rounded-full ${getRiskScoreBg(rr.overallScore)} transition-all duration-500`} style={{ width: `${rr.overallScore}%` }} />
+                  </div>
+                  <span className={`text-lg font-bold tabular-nums ${getRiskScoreColor(rr.overallScore)}`}>{rr.overallScore}</span>
+                </div>
+
+                {/* Sub-indicators */}
+                <div className="flex flex-wrap gap-2 mb-3">
+                  <span className="text-[10px] font-medium px-2 py-1 rounded-md bg-slate-800 text-slate-300">
+                    Budget: {rr.budgetConstraintSeverity}
+                  </span>
+                  <span className="text-[10px] font-medium px-2 py-1 rounded-md bg-slate-800 text-slate-300">
+                    Delay: {rr.paymentDelayLikelihood}
+                  </span>
+                  <span className="text-[10px] font-medium px-2 py-1 rounded-md bg-slate-800 text-slate-300">
+                    Cancel: {rr.cancellationRisk}
+                  </span>
+                </div>
+
+                {/* Risk items */}
+                {rr.risks.length > 0 && (
+                  <div className="space-y-2 mt-3 border-t border-slate-800 pt-3">
+                    {rr.risks.map((r, i) => (
+                      <div key={i} className="bg-slate-950/50 rounded-lg p-2 border border-slate-800">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${
+                            r.severity === "High" ? "bg-rose-500/15 text-rose-400 border-rose-500/20" :
+                            r.severity === "Medium" ? "bg-amber-500/15 text-amber-400 border-amber-500/20" :
+                            "bg-emerald-500/15 text-emerald-400 border-emerald-500/20"
+                          }`}>{r.severity}</span>
+                          <p className="text-xs text-white font-medium">{r.risk}</p>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-1 italic">&ldquo;{r.evidence}&rdquo;</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Competitive Pricing Intel */}
+              <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+                <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                  <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Competitive Pricing
+                </h3>
+
+                {/* Discount pressure */}
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xs text-slate-400">Discount Pressure:</span>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-md border ${
+                    cp.discountPressureLevel === "High" ? "bg-rose-500/15 text-rose-400 border-rose-500/20" :
+                    cp.discountPressureLevel === "Medium" ? "bg-amber-500/15 text-amber-400 border-amber-500/20" :
+                    cp.discountPressureLevel === "Low" ? "bg-yellow-500/15 text-yellow-400 border-yellow-500/20" :
+                    "bg-emerald-500/15 text-emerald-400 border-emerald-500/20"
+                  }`}>{cp.discountPressureLevel}</span>
+                </div>
+
+                {cp.priceSensitivitySignal && (
+                  <p className="text-xs text-slate-400 mb-3">{cp.priceSensitivitySignal}</p>
+                )}
+
+                {/* Competitor rows */}
+                {cp.competitorsDetected.length > 0 ? (
+                  <div className="space-y-2">
+                    {cp.competitorsDetected.map((c, i) => (
+                      <div key={i} className="bg-slate-950/50 rounded-lg p-2.5 border border-slate-800 flex items-center justify-between gap-2">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs text-white font-medium">{c.competitor}</p>
+                          <p className="text-[11px] text-slate-400 truncate">{c.context}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          {c.mentionedPrice && (
+                            <span className="text-xs text-teal-400 font-mono">{c.mentionedPrice}</span>
+                          )}
+                          {c.discountPressure && (
+                            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/20">DISCOUNT</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-slate-500">No competitors mentioned.</p>
+                )}
+              </div>
+            </div>
+
+            {/* Bottom Row: ROI & Payback */}
+            <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+              <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                <svg className="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                ROI &amp; Payback Analysis
+                <span className={`text-[10px] font-medium px-2 py-0.5 rounded-md ml-auto ${
+                  roi.dataConfidence === "High" ? "bg-emerald-500/15 text-emerald-400" :
+                  roi.dataConfidence === "Medium" ? "bg-yellow-500/15 text-yellow-400" :
+                  roi.dataConfidence === "Low" ? "bg-orange-500/15 text-orange-400" :
+                  "bg-slate-500/15 text-slate-400"
+                }`}>
+                  {roi.dataConfidence} Confidence
+                </span>
+              </h3>
+
+              <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 ${roi.dataConfidence === "Insufficient" ? "opacity-50" : ""}`}>
+                <div className="text-center">
+                  <p className="text-xs text-slate-400 mb-1">Current Cost</p>
+                  <p className="text-lg font-bold text-white">{roi.prospectCurrentCost || "N/A"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-slate-400 mb-1">Expected Savings</p>
+                  <p className="text-lg font-bold text-white">{roi.prospectExpectedSavings || "N/A"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-slate-400 mb-1">Implied ROI</p>
+                  <p className="text-lg font-bold text-teal-400">{roi.impliedROIPercent != null ? `${roi.impliedROIPercent}%` : "N/A"}</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs text-slate-400 mb-1">Payback Period</p>
+                  <p className="text-lg font-bold text-teal-400">{roi.paybackPeriodMonths != null ? `${roi.paybackPeriodMonths}mo` : "N/A"}</p>
+                </div>
+              </div>
+
+              {roi.reasoning && (
+                <p className="text-xs text-slate-400 mt-3 border-t border-slate-800 pt-3">{roi.reasoning}</p>
+              )}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Buying Signals & Objections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

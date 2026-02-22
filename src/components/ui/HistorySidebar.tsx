@@ -342,6 +342,33 @@ export function HistorySidebar({
                         )}
                       </div>
 
+                      {/* Financial indicators */}
+                      {entry.result?.financialAnalysis && (() => {
+                        const fa = entry.result.financialAnalysis!;
+                        const pv = fa.dealEconomics.weightedPipelineValue;
+                        const bh = fa.budgetHealth.status;
+                        if (pv == null && !bh) return null;
+                        const budgetColor =
+                          bh === "Confirmed" ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/20" :
+                          bh === "Exploring" ? "bg-blue-500/15 text-blue-400 border-blue-500/20" :
+                          bh === "Constrained" ? "bg-amber-500/15 text-amber-400 border-amber-500/20" :
+                          "bg-rose-500/15 text-rose-400 border-rose-500/20";
+                        return (
+                          <div className="flex items-center gap-2 mt-1.5 text-[11px]">
+                            {pv != null && (
+                              <span className="text-teal-400 font-semibold">
+                                {pv >= 1_000_000 ? `$${(pv / 1_000_000).toFixed(1)}M` : pv >= 1_000 ? `$${(pv / 1_000).toFixed(0)}K` : `$${pv}`}
+                              </span>
+                            )}
+                            {bh && (
+                              <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-md border ${budgetColor}`}>
+                                {bh}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })()}
+
                       {/* Next step preview */}
                       {nextStep && (
                         <p className="text-[11px] text-slate-500 mt-2 leading-relaxed line-clamp-2 border-t border-slate-800/50 pt-2">

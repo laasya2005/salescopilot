@@ -144,7 +144,50 @@ Respond ONLY with valid JSON in the following exact format (no markdown, no code
   "coachingSummary": "<a 3-5 sentence coaching summary for the sales rep, highlighting what they did well and what they could improve>",
   "suggestedQuestions": [
     { "question": "<specific question the rep should ask>", "reason": "<why this matters>" }
-  ]
+  ],
+  "financialAnalysis": {
+    "dealEconomics": {
+      "extractedMonthlySpend": "<number or null if not mentioned>",
+      "extractedAnnualSpend": "<number or null if not mentioned>",
+      "contractTermMonths": "<number or null>",
+      "totalContractValue": "<number or null>",
+      "weightedPipelineValue": null,
+      "reasoning": "<1-2 sentences explaining extraction>"
+    },
+    "revenueRisk": {
+      "overallScore": "<0-100, higher = riskier>",
+      "budgetConstraintSeverity": "<None | Mild | Moderate | Severe>",
+      "paymentDelayLikelihood": "<Low | Medium | High>",
+      "cancellationRisk": "<Low | Medium | High>",
+      "risks": [
+        { "risk": "<description>", "severity": "<Low | Medium | High>", "evidence": "<quote or reference>" }
+      ],
+      "reasoning": "<1-2 sentences>"
+    },
+    "competitivePricing": {
+      "competitorsDetected": [
+        { "competitor": "<name>", "mentionedPrice": "<string or null>", "discountPressure": "<true|false>", "context": "<brief context>" }
+      ],
+      "discountPressureLevel": "<None | Low | Medium | High>",
+      "priceSensitivitySignal": "<brief description>",
+      "reasoning": "<1-2 sentences>"
+    },
+    "roiPayback": {
+      "prospectCurrentCost": "<string or null>",
+      "prospectExpectedSavings": "<string or null>",
+      "impliedROIPercent": "<number or null>",
+      "paybackPeriodMonths": "<number or null>",
+      "dataConfidence": "<High | Medium | Low | Insufficient>",
+      "reasoning": "<1-2 sentences>"
+    },
+    "budgetHealth": {
+      "status": "<Confirmed | Exploring | Constrained | No Budget>",
+      "approvalProcess": "<string or null>",
+      "fiscalYearTiming": "<string or null>",
+      "budgetOwner": "<string or null>",
+      "reasoning": "<1-2 sentences>"
+    }
+  }
 }
 
 Guidelines:
@@ -155,7 +198,14 @@ ${evidenceGuideline}
 - nextSteps: 3-5 specific, actionable steps with clear owners where possible.
 - followUpEmail: Professional, references specific discussion points, includes clear CTA.
 - coachingSummary: Constructive feedback on the sales rep's performance in this ${interactionWord}.
-- suggestedQuestions: 3-5 discovery questions the rep should have asked or should ask next. Focus on uncovering budget, authority, need, timeline, or competitive landscape. Each "reason" explains why that question matters for THIS specific deal.`;
+- suggestedQuestions: 3-5 discovery questions the rep should have asked or should ask next. Focus on uncovering budget, authority, need, timeline, or competitive landscape. Each "reason" explains why that question matters for THIS specific deal.
+
+Financial Intelligence Guidelines:
+- dealEconomics: Extract MRR/ARR from monthly/annual spend mentions. Do NOT fabricate numbers — use null when not mentioned. totalContractValue = monthly spend × contract term if both are available.
+- revenueRisk: overallScore 0-100 (higher = riskier). Look for budget freezes, procurement delays, "free trial" requests, evaluation-only language.
+- competitivePricing: Extract competitor names and any prices mentioned. Flag discount leverage attempts. Empty array if no competitors mentioned.
+- roiPayback: Only calculate when prospect mentions actual costs or savings. Use dataConfidence "Insufficient" when data is missing. Do NOT guess numbers.
+- budgetHealth: Confirmed = budget allocated/approved, Exploring = investigating options, Constrained = tight budget mentioned, No Budget = no budget allocated or discussed.`;
 
     const completion = await openai.chat.completions.create({
       model: "gpt-4o-mini",
@@ -196,7 +246,30 @@ ${evidenceGuideline}
       );
     }
 
-    return NextResponse.json(analysis);
+    // Validate financialAnalysis structure loosely when present
+    const parsed = analysis as Record<string, unknown>;
+    if (parsed.financialAnalysis) {
+      const fa = parsed.financialAnalysis as Record<string, unknown>;
+      if (!fa.dealEconomics || !fa.revenueRisk || !fa.competitivePricing || !fa.roiPayback || !fa.budgetHealth) {
+        // Strip malformed financial data rather than failing
+        delete parsed.financialAnalysis;
+      }
+    }
+
+    // Compute weightedPipelineValue server-side
+    if (parsed.financialAnalysis) {
+      const fa = parsed.financialAnalysis as Record<string, unknown>;
+      const de = fa.dealEconomics as Record<string, unknown> | undefined;
+      const closeForecast = parsed.closeForecast as number;
+      if (de && closeForecast != null) {
+        const num = dealAmount ? parseFloat(String(dealAmount).replace(/[^0-9.]/g, "")) : null;
+        if (num && !isNaN(num)) {
+          de.weightedPipelineValue = Math.round((closeForecast / 100) * num);
+        }
+      }
+    }
+
+    return NextResponse.json(parsed);
   } catch (error: unknown) {
     console.error("Analysis error:", error);
     const message =

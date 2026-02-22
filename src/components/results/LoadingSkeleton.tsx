@@ -33,6 +33,36 @@ export function LoadingSkeleton() {
         ))}
       </div>
 
+      {/* Skeleton: Financial Intelligence */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-slate-800 animate-pulse" />
+          <div className="w-40 h-4 bg-slate-800 rounded-full animate-pulse" />
+        </div>
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 text-center">
+              <div className="w-16 h-3 bg-slate-800 rounded-full animate-pulse mx-auto mb-2" />
+              <div className="w-20 h-6 bg-slate-800 rounded-full animate-pulse mx-auto" />
+              <div className="w-12 h-2 bg-slate-800/50 rounded-full animate-pulse mx-auto mt-2" />
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+              <div className="w-32 h-4 bg-slate-800 rounded-full animate-pulse mb-4" />
+              <div className="w-full h-2 bg-slate-800 rounded-full animate-pulse mb-3" />
+              <div className="flex gap-2 mb-3">
+                {[...Array(3)].map((_, j) => (
+                  <div key={j} className="w-16 h-5 bg-slate-800 rounded-md animate-pulse" />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Skeleton: Signals & Objections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (

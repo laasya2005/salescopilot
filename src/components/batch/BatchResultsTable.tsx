@@ -21,6 +21,12 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
   const highRiskCount = completed.filter((i) => i.result?.dealRisk === "High").length;
   const worthChasingCount = completed.filter((i) => i.result?.worthChasing).length;
 
+  // Total pipeline value across batch
+  const totalPipelineValue = completed.reduce((sum, item) => {
+    const pv = item.result?.financialAnalysis?.dealEconomics?.weightedPipelineValue;
+    return sum + (pv ?? 0);
+  }, 0);
+
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
   };
@@ -28,7 +34,7 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
   return (
     <div className="space-y-6">
       {/* Summary Stats Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4 text-center">
           <p className="text-2xl font-bold text-white">{completed.length}</p>
           <p className="text-xs text-slate-400">Analyzed</p>
@@ -44,6 +50,18 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
         <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4 text-center">
           <p className="text-2xl font-bold text-emerald-400">{worthChasingCount}</p>
           <p className="text-xs text-slate-400">Worth Chasing</p>
+        </div>
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4 text-center">
+          <p className="text-2xl font-bold text-teal-400">
+            {totalPipelineValue >= 1_000_000
+              ? `$${(totalPipelineValue / 1_000_000).toFixed(1)}M`
+              : totalPipelineValue >= 1_000
+                ? `$${(totalPipelineValue / 1_000).toFixed(0)}K`
+                : totalPipelineValue > 0
+                  ? `$${totalPipelineValue.toLocaleString()}`
+                  : "N/A"}
+          </p>
+          <p className="text-xs text-slate-400">Pipeline Value</p>
         </div>
       </div>
 
