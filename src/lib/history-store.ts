@@ -2,7 +2,8 @@ import fs from "fs/promises";
 import path from "path";
 import type { HistoryEntry } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const IS_VERCEL = !!process.env.VERCEL;
+const DATA_DIR = IS_VERCEL ? "/tmp/data" : path.join(process.cwd(), "data");
 const HISTORY_FILE = path.join(DATA_DIR, "history.json");
 const MAX_HISTORY_ENTRIES = 100;
 

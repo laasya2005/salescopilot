@@ -7,7 +7,10 @@ import type {
   WorkspaceDocument,
 } from "./types";
 
-const WORKSPACES_DIR = path.join(process.cwd(), "data", "workspaces");
+const IS_VERCEL = !!process.env.VERCEL;
+const WORKSPACES_DIR = IS_VERCEL
+  ? "/tmp/data/workspaces"
+  : path.join(process.cwd(), "data", "workspaces");
 
 const SAFE_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const MAX_TASKS = 500;
