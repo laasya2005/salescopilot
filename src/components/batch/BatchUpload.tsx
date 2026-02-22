@@ -102,7 +102,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
   };
 
   const inputClass =
-    "w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm";
+    "w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm";
 
   const hasItems = items.length > 0;
   const allHaveCompany = items.every((i) => i.companyName.trim());
@@ -113,13 +113,17 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* File Upload */}
         <div
-          className={`bg-slate-900/50 rounded-xl border-2 border-dashed p-8 text-center transition-colors cursor-pointer ${
-            dragOver ? "border-blue-500 bg-blue-500/5" : "border-slate-700 hover:border-slate-500"
+          className={`bg-slate-900/50 rounded-xl border-2 border-dashed p-8 text-center transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+            dragOver ? "border-indigo-500 bg-indigo-500/5" : "border-slate-700 hover:border-slate-500"
           }`}
           onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
+          tabIndex={0}
+          role="button"
+          aria-label="Upload .txt files"
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fileInputRef.current?.click(); } }}
         >
           <input
             ref={fileInputRef}
@@ -137,12 +141,12 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
         </div>
 
         {/* Multi-paste */}
-        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
+          <label className="block text-xs font-medium text-slate-300 mb-1.5">
             Multi-Paste
           </label>
           <textarea
-            className="w-full h-32 bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm leading-relaxed"
+            className="w-full h-32 bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 resize-y min-h-[128px] max-h-[400px] text-sm leading-relaxed"
             placeholder={"Paste multiple transcripts separated by --- on a new line\n\nTranscript 1 text...\n---\nTranscript 2 text...\n---\nTranscript 3 text..."}
             value={pasteText}
             onChange={(e) => setPasteText(e.target.value)}
@@ -150,7 +154,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
           <button
             onClick={handleSplitAndAdd}
             disabled={!pasteText.trim() || items.length >= 10}
-            className="mt-2 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:text-slate-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors"
+            className="mt-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-slate-200 text-sm font-medium py-2.5 px-4 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
           >
             Split & Add
           </button>
@@ -159,17 +163,17 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
 
       {/* Queue */}
       {hasItems && (
-        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold text-slate-200">
               Queue ({items.length}/10)
             </h3>
           </div>
 
-          {/* Bulk Set All Row */}
-          <div className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-2 mb-4 items-end">
+          {/* Bulk Set All Row — Desktop */}
+          <div className="hidden md:grid grid-cols-[1fr_120px_80px_32px_32px] gap-2 mb-4 items-end">
             <div>
-              <label className="block text-xs text-slate-500 mb-1">Set All Company</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Set All Company</label>
               <input
                 type="text"
                 className={inputClass}
@@ -179,7 +183,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-500 mb-1">Stage</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Stage</label>
               <select
                 className={inputClass}
                 value={bulkStage}
@@ -191,9 +195,10 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
               </select>
             </div>
             <div>
-              <label className="block text-xs text-slate-500 mb-1">Amount</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Amount</label>
               <input
                 type="text"
+                inputMode="numeric"
                 className={inputClass}
                 placeholder="$"
                 value={bulkAmount}
@@ -202,25 +207,70 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
             </div>
             <button
               onClick={handleSetAll}
-              className="bg-slate-700 hover:bg-slate-600 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors"
+              className="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium py-2 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
-              Apply All
+              Apply
             </button>
             <div />
           </div>
 
-          {/* Queue Items */}
-          <div className="space-y-2">
+          {/* Bulk Set All Row — Mobile */}
+          <div className="md:hidden space-y-3 mb-4">
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Set All Company</label>
+              <input
+                type="text"
+                className={inputClass}
+                placeholder="Company name"
+                value={bulkCompany}
+                onChange={(e) => setBulkCompany(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Stage</label>
+                <select
+                  className={inputClass}
+                  value={bulkStage}
+                  onChange={(e) => setBulkStage(e.target.value)}
+                >
+                  <option value="Discovery">Discovery</option>
+                  <option value="Demo">Demo</option>
+                  <option value="Negotiation">Negotiation</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">Amount</label>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  className={inputClass}
+                  placeholder="$"
+                  value={bulkAmount}
+                  onChange={(e) => setBulkAmount(e.target.value)}
+                />
+              </div>
+            </div>
+            <button
+              onClick={handleSetAll}
+              className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium py-2 px-3 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              Apply All
+            </button>
+          </div>
+
+          {/* Queue Items — Desktop */}
+          <div className="hidden md:block space-y-2">
             {items.map((item) => (
               <div
                 key={item.id}
-                className={`grid grid-cols-[1fr_auto_auto_auto_auto] gap-2 items-center p-3 rounded-lg border ${
+                className={`grid grid-cols-[1fr_120px_80px_32px_32px] gap-2 items-center p-3 rounded-lg border ${
                   item.status === "completed"
                     ? "bg-emerald-500/5 border-emerald-500/20"
                     : item.status === "error"
                     ? "bg-red-500/5 border-red-500/20"
                     : item.status === "processing"
-                    ? "bg-blue-500/5 border-blue-500/20"
+                    ? "bg-indigo-500/5 border-indigo-500/20"
                     : "bg-slate-950/50 border-slate-800"
                 }`}
               >
@@ -228,7 +278,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
                   <p className="text-xs text-slate-400 truncate">{item.preview}</p>
                   <input
                     type="text"
-                    className="mt-1 w-full bg-transparent border border-slate-700 rounded px-2 py-1 text-white text-xs placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="mt-1 w-full bg-transparent border border-slate-700 rounded px-2 py-1 text-white text-xs placeholder-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
                     placeholder="Company name *"
                     value={item.companyName}
                     onChange={(e) => updateItem(item.id, { companyName: e.target.value })}
@@ -236,7 +286,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
                   />
                 </div>
                 <select
-                  className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white text-xs focus:outline-none"
+                  className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
                   value={item.dealStage}
                   onChange={(e) => updateItem(item.id, { dealStage: e.target.value })}
                   disabled={processing}
@@ -247,7 +297,8 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
                 </select>
                 <input
                   type="text"
-                  className="w-20 bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white text-xs placeholder-slate-600 focus:outline-none"
+                  inputMode="numeric"
+                  className="bg-slate-950 border border-slate-700 rounded px-2 py-1 text-white text-xs placeholder-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
                   placeholder="$"
                   value={item.dealAmount}
                   onChange={(e) => updateItem(item.id, { dealAmount: e.target.value })}
@@ -261,7 +312,7 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
                     </svg>
                   )}
                   {item.status === "processing" && (
-                    <svg className="w-4 h-4 text-blue-400 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <svg className="w-4 h-4 text-indigo-400 animate-spin" viewBox="0 0 24 24" fill="none">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
@@ -276,7 +327,8 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
                 <button
                   onClick={() => removeItem(item.id)}
                   disabled={processing}
-                  className="text-slate-600 hover:text-red-400 disabled:opacity-30 transition-colors"
+                  aria-label={`Remove ${item.companyName || "item"}`}
+                  className="text-slate-500 hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -286,12 +338,91 @@ export function BatchUpload({ items, setItems, processing, onStartProcessing }: 
             ))}
           </div>
 
+          {/* Queue Items — Mobile Card Layout */}
+          <div className="md:hidden space-y-3">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className={`flex flex-col p-3 rounded-lg border ${
+                  item.status === "completed"
+                    ? "bg-emerald-500/5 border-emerald-500/20"
+                    : item.status === "error"
+                    ? "bg-red-500/5 border-red-500/20"
+                    : item.status === "processing"
+                    ? "bg-indigo-500/5 border-indigo-500/20"
+                    : "bg-slate-950/50 border-slate-800"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <p className="text-xs text-slate-400 line-clamp-2 flex-1">{item.preview}</p>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    {item.status === "completed" && (
+                      <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                    {item.status === "processing" && (
+                      <svg className="w-4 h-4 text-indigo-400 animate-spin" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                    )}
+                    {item.status === "error" && (
+                      <svg className="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    )}
+                    <button
+                      onClick={() => removeItem(item.id)}
+                      disabled={processing}
+                      aria-label={`Remove ${item.companyName || "item"}`}
+                      className="text-slate-500 hover:text-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  className="w-full bg-transparent border border-slate-700 rounded px-2 py-1.5 text-white text-xs placeholder-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400 mb-2"
+                  placeholder="Company name *"
+                  value={item.companyName}
+                  onChange={(e) => updateItem(item.id, { companyName: e.target.value })}
+                  disabled={processing}
+                />
+                <div className="grid grid-cols-2 gap-2">
+                  <select
+                    className="bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-white text-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
+                    value={item.dealStage}
+                    onChange={(e) => updateItem(item.id, { dealStage: e.target.value })}
+                    disabled={processing}
+                  >
+                    <option value="Discovery">Discovery</option>
+                    <option value="Demo">Demo</option>
+                    <option value="Negotiation">Negotiation</option>
+                  </select>
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    className="bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-white text-xs placeholder-slate-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-indigo-400"
+                    placeholder="$ Amount"
+                    value={item.dealAmount}
+                    onChange={(e) => updateItem(item.id, { dealAmount: e.target.value })}
+                    disabled={processing}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* Process button */}
           <div className="mt-4">
             <button
               onClick={onStartProcessing}
               disabled={processing || !hasItems || !allHaveCompany}
-              className="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+              className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               {processing ? (
                 <>

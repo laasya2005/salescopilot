@@ -26,15 +26,25 @@ export function TranscriptInput({
   onAnalyze,
 }: TranscriptInputProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <div className={`grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 ${loading ? "relative" : ""}`}>
+      {/* Loading overlay */}
+      {loading && (
+        <div className="absolute inset-0 z-10 rounded-xl">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-loading-bar" />
+          </div>
+          <div className="absolute inset-0 bg-slate-950/40 rounded-xl pointer-events-none" />
+        </div>
+      )}
+
       {/* Transcript Input */}
       <div className="lg:col-span-2">
-        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
-          <label className="block text-sm font-medium text-slate-300 mb-2">
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 h-full flex flex-col">
+          <label className="block text-xs font-medium text-slate-300 mb-1.5">
             Meeting Transcript
           </label>
           <textarea
-            className="w-full h-64 bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm leading-relaxed"
+            className="w-full flex-1 min-h-[240px] bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 resize-y max-h-[600px] text-sm leading-relaxed"
             placeholder="Paste your sales meeting transcript here..."
             value={transcript}
             onChange={(e) => setTranscript(e.target.value)}
@@ -47,54 +57,58 @@ export function TranscriptInput({
         </div>
       </div>
 
-      {/* Metadata Inputs */}
-      <div className="space-y-4">
-        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6 space-y-4">
-          <h3 className="text-sm font-medium text-slate-300">Deal Details</h3>
+      {/* Metadata Inputs + Analyze Button */}
+      <div className="flex flex-col gap-4">
+        <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5 flex-1 flex flex-col">
+          <h3 className="text-xs font-medium text-slate-300 mb-4">Deal Details</h3>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">
-              Company Name *
-            </label>
-            <input
-              type="text"
-              className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              placeholder="e.g. Acme Corp"
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">
-              Deal Stage *
-            </label>
-            <select
-              className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-              value={dealStage}
-              onChange={(e) => setDealStage(e.target.value)}
-            >
-              <option value="Discovery">Discovery</option>
-              <option value="Demo">Demo</option>
-              <option value="Negotiation">Negotiation</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">
-              Deal Amount (optional)
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-2.5 text-slate-500 text-sm">
-                $
-              </span>
+          <div className="space-y-4 flex-1">
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                Company Name *
+              </label>
               <input
                 type="text"
-                className="w-full bg-slate-950 border border-slate-700 rounded-lg pl-7 pr-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                placeholder="50,000"
-                value={dealAmount}
-                onChange={(e) => setDealAmount(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm"
+                placeholder="e.g. Acme Corp"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
               />
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                Deal Stage *
+              </label>
+              <select
+                className="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm appearance-none"
+                value={dealStage}
+                onChange={(e) => setDealStage(e.target.value)}
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 6l3.5 4 3.5-4H4.5z'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
+              >
+                <option value="Discovery">Discovery</option>
+                <option value="Demo">Demo</option>
+                <option value="Negotiation">Negotiation</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                Deal Amount (optional)
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-2.5 text-slate-500 text-sm">
+                  $
+                </span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg pl-7 pr-4 py-2.5 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm"
+                  placeholder="50,000"
+                  value={dealAmount}
+                  onChange={(e) => setDealAmount(e.target.value)}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -102,7 +116,7 @@ export function TranscriptInput({
         <button
           onClick={onAnalyze}
           disabled={loading}
-          className="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           {loading ? (
             <>

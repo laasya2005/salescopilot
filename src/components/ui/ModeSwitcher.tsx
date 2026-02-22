@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import type { InputMode } from "@/lib/types";
 
 const modes: { key: InputMode; label: string; icon: React.ReactNode }[] = [
@@ -48,15 +49,46 @@ export function ModeSwitcher({
   activeMode: InputMode;
   onChange: (mode: InputMode) => void;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      const idx = modes.findIndex((m) => m.key === activeMode);
+      let next = idx;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        next = (idx + 1) % modes.length;
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        next = (idx - 1 + modes.length) % modes.length;
+      } else {
+        return;
+      }
+      onChange(modes[next].key);
+      const buttons = containerRef.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+      buttons?.[next]?.focus();
+    },
+    [activeMode, onChange]
+  );
+
   return (
-    <div className="flex bg-slate-900/50 rounded-xl border border-slate-800 p-1">
+    <div
+      ref={containerRef}
+      role="tablist"
+      aria-label="Input mode"
+      className="flex bg-slate-900/50 rounded-xl border border-slate-800 p-1"
+      onKeyDown={handleKeyDown}
+    >
       {modes.map((mode) => (
         <button
           key={mode.key}
+          role="tab"
+          aria-selected={activeMode === mode.key}
+          tabIndex={activeMode === mode.key ? 0 : -1}
           onClick={() => onChange(mode.key)}
-          className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-200 ${
+          className={`flex-1 flex items-center justify-center gap-2 py-3 min-h-[44px] px-4 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
             activeMode === mode.key
-              ? "bg-gradient-to-r from-blue-600 to-violet-600 text-white shadow-lg"
+              ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg"
               : "text-slate-400 hover:text-white hover:bg-slate-800/50"
           }`}
         >

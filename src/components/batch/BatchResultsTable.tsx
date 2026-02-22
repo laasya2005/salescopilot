@@ -3,16 +3,7 @@
 import { useState } from "react";
 import type { BatchItem } from "@/lib/types";
 import { AnalysisResults } from "@/components/results/AnalysisResults";
-
-function ScoreDot({ value, thresholds }: { value: number; thresholds: [number, number] }) {
-  const color =
-    value >= thresholds[1]
-      ? "bg-emerald-400"
-      : value >= thresholds[0]
-      ? "bg-amber-400"
-      : "bg-red-400";
-  return <span className={`inline-block w-2 h-2 rounded-full ${color} mr-2`} />;
-}
+import { ScoreDot } from "@/components/ui/ScoreDot";
 
 export function BatchResultsTable({ items }: { items: BatchItem[] }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
@@ -30,6 +21,10 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
   const highRiskCount = completed.filter((i) => i.result?.dealRisk === "High").length;
   const worthChasingCount = completed.filter((i) => i.result?.worthChasing).length;
 
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
+
   return (
     <div className="space-y-6">
       {/* Summary Stats Bar */}
@@ -43,7 +38,7 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
           <p className="text-xs text-slate-400">Avg Lead Score</p>
         </div>
         <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4 text-center">
-          <p className="text-2xl font-bold text-red-400">{highRiskCount}</p>
+          <p className="text-2xl font-bold text-rose-400">{highRiskCount}</p>
           <p className="text-xs text-slate-400">High Risk</p>
         </div>
         <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4 text-center">
@@ -52,8 +47,8 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
         </div>
       </div>
 
-      {/* Results Table */}
-      <div className="bg-slate-900/50 rounded-xl border border-slate-800 overflow-hidden">
+      {/* Results Table — Desktop */}
+      <div className="hidden md:block bg-slate-900/50 rounded-xl border border-slate-800 overflow-hidden">
         {/* Table Header */}
         <div className="grid grid-cols-[1fr_auto_auto_auto_auto_auto] gap-4 px-6 py-3 border-b border-slate-800 text-xs font-medium text-slate-400 uppercase tracking-wider">
           <span>Company</span>
@@ -75,13 +70,23 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
                 className={`grid grid-cols-[1fr_auto_auto_auto_auto_auto] gap-4 px-6 py-4 items-center border-b border-slate-800/50 cursor-pointer hover:bg-slate-800/30 transition-colors ${
                   isExpanded ? "bg-slate-800/20" : ""
                 }`}
-                onClick={() => setExpandedId(isExpanded ? null : item.id)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={isExpanded}
+                aria-label={`${item.companyName} — Lead Score ${r.leadScore}, ${r.dealRisk} risk`}
+                onClick={() => toggleExpand(item.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleExpand(item.id);
+                  }
+                }}
               >
                 <span className="text-sm text-white font-medium truncate">
                   {item.companyName}
                 </span>
                 <span className="text-sm text-white font-mono w-12 text-center">
-                  <ScoreDot value={r.leadScore} thresholds={[40, 70]} />
+                  <ScoreDot value={r.leadScore} className="mr-2" />
                   {r.leadScore}
                 </span>
                 <span
@@ -90,19 +95,22 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
                       ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
                       : r.dealRisk === "Medium"
                       ? "bg-amber-500/20 text-amber-400 border-amber-500/30"
-                      : "bg-red-500/20 text-red-400 border-red-500/30"
+                      : "bg-rose-500/20 text-rose-400 border-rose-500/30"
                   }`}
                 >
                   {r.dealRisk}
                 </span>
                 <span className="text-sm text-white font-mono w-12 text-center">
-                  <ScoreDot value={r.closeForecast} thresholds={[30, 60]} />
+                  <ScoreDot value={r.closeForecast} className="mr-2" />
                   {r.closeForecast}%
                 </span>
-                <span className={`text-sm font-semibold w-16 text-center ${r.worthChasing ? "text-emerald-400" : "text-red-400"}`}>
+                <span className={`text-sm font-semibold w-16 text-center ${r.worthChasing ? "text-emerald-400" : "text-rose-400"}`}>
                   {r.worthChasing ? "Yes" : "No"}
                 </span>
-                <button className="text-xs text-slate-400 hover:text-white transition-colors whitespace-nowrap">
+                <button
+                  className="text-xs text-slate-400 hover:text-white transition-colors whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded px-2 py-1"
+                  tabIndex={-1}
+                >
                   {isExpanded ? "Hide" : "View Details"}
                 </button>
               </div>
@@ -125,6 +133,89 @@ export function BatchResultsTable({ items }: { items: BatchItem[] }) {
           >
             <span className="text-sm text-white">{item.companyName || "Unknown"}</span>
             <span className="text-xs text-red-400">{item.error || "Analysis failed"}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Results Cards — Mobile */}
+      <div className="md:hidden space-y-3">
+        {completed.map((item) => {
+          const r = item.result!;
+          const isExpanded = expandedId === item.id;
+
+          return (
+            <div
+              key={item.id}
+              className="bg-slate-900/50 rounded-xl border border-slate-800 overflow-hidden"
+            >
+              <div
+                role="button"
+                tabIndex={0}
+                aria-expanded={isExpanded}
+                className="p-4 cursor-pointer hover:bg-slate-800/30 transition-colors"
+                onClick={() => toggleExpand(item.id)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleExpand(item.id);
+                  }
+                }}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-white font-medium truncate flex-1">
+                    {item.companyName}
+                  </span>
+                  <span className="text-xs text-slate-400">
+                    {isExpanded ? "Hide" : "Details"}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div>
+                    <p className="text-xs text-slate-400 mb-1">Score</p>
+                    <p className="text-sm text-white font-mono">
+                      <ScoreDot value={r.leadScore} className="mr-2" />
+                      {r.leadScore}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 mb-1">Risk</p>
+                    <span
+                      className={`text-xs font-semibold px-2 py-0.5 rounded-full border inline-block ${
+                        r.dealRisk === "Low"
+                          ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                          : r.dealRisk === "Medium"
+                          ? "bg-amber-500/20 text-amber-400 border-amber-500/30"
+                          : "bg-rose-500/20 text-rose-400 border-rose-500/30"
+                      }`}
+                    >
+                      {r.dealRisk}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 mb-1">Chase?</p>
+                    <p className={`text-sm font-semibold ${r.worthChasing ? "text-emerald-400" : "text-rose-400"}`}>
+                      {r.worthChasing ? "Yes" : "No"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {isExpanded && (
+                <div className="px-4 pb-4 pt-2 border-t border-slate-800/50 bg-slate-950/30">
+                  <AnalysisResults result={r} />
+                </div>
+              )}
+            </div>
+          );
+        })}
+
+        {/* Error cards — Mobile */}
+        {errors.map((item) => (
+          <div
+            key={item.id}
+            className="bg-red-500/5 rounded-xl border border-red-500/20 p-4"
+          >
+            <p className="text-sm text-white font-medium">{item.companyName || "Unknown"}</p>
+            <p className="text-xs text-red-400 mt-1">{item.error || "Analysis failed"}</p>
           </div>
         ))}
       </div>

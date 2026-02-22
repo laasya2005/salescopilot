@@ -14,8 +14,13 @@ export function ScoreRing({
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative">
-        <svg width="100" height="100" className="-rotate-90">
+      <div className="relative w-[80px] h-[80px] sm:w-[100px] sm:h-[100px]">
+        <svg
+          viewBox="0 0 100 100"
+          className="-rotate-90 w-full h-full"
+          role="img"
+          aria-label={`${label}: ${value} out of 100`}
+        >
           <circle
             cx="50"
             cy="50"
@@ -38,7 +43,7 @@ export function ScoreRing({
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">{value}</span>
+          <span className="text-xl sm:text-2xl font-bold text-white">{value}</span>
         </div>
       </div>
       <span className="text-sm text-slate-400 font-medium">{label}</span>

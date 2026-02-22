@@ -2,26 +2,26 @@
 
 export function LoadingSkeleton() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" role="status" aria-busy="true" aria-label="Loading analysis results">
       {/* Progress header */}
       <div className="flex flex-col items-center py-6">
         <div className="relative mb-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-violet-600/20 flex items-center justify-center">
-            <svg className="w-7 h-7 text-blue-400 animate-spin" viewBox="0 0 24 24" fill="none">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-violet-600/20 flex items-center justify-center">
+            <svg className="w-7 h-7 text-indigo-400 animate-spin" viewBox="0 0 24 24" fill="none">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
             </svg>
           </div>
         </div>
-        <h3 className="text-blue-400 font-semibold text-lg">Analyzing your transcript...</h3>
+        <h3 className="text-indigo-400 font-semibold text-lg">Analyzing your transcript...</h3>
         <p className="text-slate-500 text-sm mt-1">AI is extracting insights and scoring this deal</p>
         <div className="w-64 h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full animate-loading-bar" />
+          <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-loading-bar" />
         </div>
       </div>
 
       {/* Skeleton: Score cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
           <div key={i} className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
             <div className="flex flex-col items-center gap-3">
@@ -36,7 +36,7 @@ export function LoadingSkeleton() {
       {/* Skeleton: Signals & Objections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[...Array(2)].map((_, i) => (
-          <div key={i} className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+          <div key={i} className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
             <div className="w-32 h-4 bg-slate-800 rounded-full animate-pulse mb-4" />
             <div className="space-y-3">
               {[...Array(3)].map((_, j) => (
@@ -51,7 +51,7 @@ export function LoadingSkeleton() {
       </div>
 
       {/* Skeleton: Next Steps */}
-      <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+      <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
         <div className="w-40 h-4 bg-slate-800 rounded-full animate-pulse mb-4" />
         <div className="space-y-3">
           {[...Array(4)].map((_, i) => (
@@ -64,7 +64,7 @@ export function LoadingSkeleton() {
       </div>
 
       {/* Skeleton: Email */}
-      <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+      <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-5">
         <div className="w-36 h-4 bg-slate-800 rounded-full animate-pulse mb-4" />
         <div className="bg-slate-950/50 rounded-lg p-4 border border-slate-800 space-y-2">
           {[...Array(6)].map((_, i) => (

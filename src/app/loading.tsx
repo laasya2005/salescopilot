@@ -1,10 +1,10 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+    <div className="min-h-screen bg-[#0A0F1E] flex items-center justify-center">
       <div className="flex flex-col items-center gap-6">
         {/* Animated logo */}
         <div className="relative">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center animate-pulse">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center animate-pulse">
             <svg
               className="w-9 h-9 text-white"
               fill="none"
@@ -34,7 +34,7 @@ export default function Loading() {
               />
               <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#3b82f6" />
+                  <stop offset="0%" stopColor="#6366f1" />
                   <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
                 </linearGradient>
               </defs>

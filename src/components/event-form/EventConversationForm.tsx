@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { EventFormData, BudgetStatus, DecisionMaker, Timeline, InterestLevel } from "@/lib/types";
 import { countFilledFields, getCompletenessLabel } from "@/lib/event-form-to-transcript";
 
@@ -16,16 +17,16 @@ function PillSelector<T extends string>({
 }) {
   return (
     <div>
-      <label className="block text-xs text-slate-400 mb-2">{label}</label>
+      <label className="block text-xs font-medium text-slate-300 mb-2">{label}</label>
       <div className="flex flex-wrap gap-2">
         {options.map((opt) => (
           <button
             key={opt}
             type="button"
             onClick={() => onChange(opt)}
-            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 ${
+            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
               value === opt
-                ? "bg-blue-600/30 border-blue-500/50 text-blue-300"
+                ? "bg-indigo-600/30 border-indigo-500/50 text-indigo-300"
                 : "bg-slate-950 border-slate-700 text-slate-400 hover:border-slate-500 hover:text-slate-300"
             }`}
           >
@@ -45,8 +46,14 @@ interface EventConversationFormProps {
 }
 
 export function EventConversationForm({ loading, form, onFormChange, onAnalyze }: EventConversationFormProps) {
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+
   const update = <K extends keyof EventFormData>(key: K, value: EventFormData[K]) => {
     onFormChange({ ...form, [key]: value });
+  };
+
+  const markTouched = (key: string) => {
+    setTouched((prev) => ({ ...prev, [key]: true }));
   };
 
   const { filled, total } = countFilledFields(form);
@@ -55,18 +62,34 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
   const canSubmit = form.companyName.trim() && form.painPoint.trim();
 
+  const companyError = touched.companyName && !form.companyName.trim();
+  const painPointError = touched.painPoint && !form.painPoint.trim();
+
   const inputClass =
-    "w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm";
+    "w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 hover:border-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm";
+
+  const errorInputClass =
+    "w-full bg-slate-950 border border-red-500/50 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 hover:border-red-400/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 text-sm";
 
   return (
-    <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-6 mb-8">
+    <div className={`bg-slate-900/50 rounded-xl border border-slate-800 p-5 mb-8 ${loading ? "relative" : ""}`}>
+      {/* Loading overlay */}
+      {loading && (
+        <div className="absolute inset-0 z-10 rounded-xl">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 rounded-full overflow-hidden">
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-loading-bar" />
+          </div>
+          <div className="absolute inset-0 bg-slate-950/40 rounded-xl pointer-events-none" />
+        </div>
+      )}
+
       {/* Header + Completeness */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-sm font-semibold text-slate-200">Event Conversation Notes</h2>
         <div className="flex items-center gap-3">
           <div className="w-32 h-1.5 bg-slate-800 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full transition-all duration-300"
+              className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-300"
               style={{ width: `${completenessPercent}%` }}
             />
           </div>
@@ -82,7 +105,7 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
           {/* Contact Section */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Prospect Name</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Prospect Name</label>
               <input
                 type="text"
                 className={inputClass}
@@ -92,7 +115,7 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Title / Role</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Title / Role</label>
               <input
                 type="text"
                 className={inputClass}
@@ -105,17 +128,21 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Company Name *</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Company Name *</label>
               <input
                 type="text"
-                className={inputClass}
+                className={companyError ? errorInputClass : inputClass}
                 placeholder="Acme Corp"
                 value={form.companyName}
                 onChange={(e) => update("companyName", e.target.value)}
+                onBlur={() => markTouched("companyName")}
               />
+              {companyError && (
+                <p className="text-xs text-red-400 mt-1">Company name is required</p>
+              )}
             </div>
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Event Name</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">Event Name</label>
               <input
                 type="text"
                 className={inputClass}
@@ -128,18 +155,22 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
           {/* Pain Point */}
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Pain Point / Need Described *</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Pain Point / Need Described *</label>
             <textarea
-              className={`${inputClass} h-24 resize-none`}
+              className={`${painPointError ? errorInputClass : inputClass} h-24 resize-y min-h-[96px] max-h-[400px]`}
               placeholder="What problem did they describe? What are they looking for?"
               value={form.painPoint}
               onChange={(e) => update("painPoint", e.target.value)}
+              onBlur={() => markTouched("painPoint")}
             />
+            {painPointError && (
+              <p className="text-xs text-red-400 mt-1">Pain point is required</p>
+            )}
           </div>
 
           {/* Competitors */}
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Competitors Mentioned</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Competitors Mentioned</label>
             <input
               type="text"
               className={inputClass}
@@ -151,9 +182,9 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
           {/* Notable Quotes */}
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Notable Quotes</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Notable Quotes</label>
             <textarea
-              className={`${inputClass} h-20 resize-none`}
+              className={`${inputClass} h-20 resize-y min-h-[80px] max-h-[400px]`}
               placeholder="Any memorable things they said..."
               value={form.notableQuotes}
               onChange={(e) => update("notableQuotes", e.target.value)}
@@ -212,9 +243,9 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
           {/* Next Steps */}
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Next Steps Discussed</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Next Steps Discussed</label>
             <textarea
-              className={`${inputClass} h-20 resize-none`}
+              className={`${inputClass} h-20 resize-y min-h-[80px] max-h-[400px]`}
               placeholder="What did you agree to do next?"
               value={form.nextStepsDiscussed}
               onChange={(e) => update("nextStepsDiscussed", e.target.value)}
@@ -223,9 +254,9 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
 
           {/* Additional Notes */}
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Additional Notes</label>
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">Additional Notes</label>
             <textarea
-              className={`${inputClass} h-20 resize-none`}
+              className={`${inputClass} h-20 resize-y min-h-[80px] max-h-[400px]`}
               placeholder="Anything else worth noting..."
               value={form.additionalNotes}
               onChange={(e) => update("additionalNotes", e.target.value)}
@@ -239,7 +270,7 @@ export function EventConversationForm({ loading, form, onFormChange, onAnalyze }
         <button
           onClick={() => onAnalyze(form)}
           disabled={loading || !canSubmit}
-          className="w-full bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           {loading ? (
             <>
