@@ -137,15 +137,12 @@ export function HistorySidebar({
 
   return (
     <>
-      {/* Toggle Button — left edge */}
+      {/* Toggle Button — left edge (hidden when sidebar is open) */}
+      {!open && (
       <button
         onClick={onToggle}
-        aria-label={open ? "Close session history" : "Open session history"}
-        className={`fixed top-20 left-0 z-30 flex items-center gap-1.5 pl-2.5 pr-3 py-2.5 rounded-r-xl border border-l-0 text-xs font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-          open
-            ? "bg-indigo-600/20 border-indigo-500/30 text-indigo-300"
-            : "bg-slate-900/90 backdrop-blur border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 hover:bg-slate-800/90"
-        }`}
+        aria-label="Open session history"
+        className="fixed top-20 left-0 z-30 flex items-center gap-1.5 pl-2.5 pr-3 py-2.5 rounded-r-xl border border-l-0 text-xs font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 bg-slate-900/90 backdrop-blur border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 hover:bg-slate-800/90"
       >
         {/* Sidebar icon */}
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,6 +155,7 @@ export function HistorySidebar({
           </span>
         )}
       </button>
+      )}
 
       {/* Sidebar Panel — left side */}
       <div
@@ -411,7 +409,7 @@ export function HistorySidebar({
       {/* Overlay when open */}
       {open && (
         <div
-          className="fixed inset-0 z-10 bg-black/30 backdrop-blur-[2px]"
+          className="fixed inset-0 z-10 bg-slate-950/70 backdrop-blur-sm"
           onClick={onToggle}
         />
       )}

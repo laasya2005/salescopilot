@@ -26,7 +26,7 @@ export function ScoreRing({
             cy="50"
             r="40"
             fill="none"
-            stroke="#1e293b"
+            stroke="#1A2B3E"
             strokeWidth="8"
           />
           <circle

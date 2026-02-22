@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-[#0A0F1E] flex items-center justify-center">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center">
       <div className="flex flex-col items-center gap-6">
         {/* Animated logo */}
         <div className="relative">
@@ -34,8 +34,8 @@ export default function Loading() {
               />
               <defs>
                 <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#1E4ED8" />
+                  <stop offset="100%" stopColor="#2E42C8" stopOpacity="0" />
                 </linearGradient>
               </defs>
             </svg>

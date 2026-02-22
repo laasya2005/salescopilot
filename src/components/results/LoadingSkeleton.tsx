@@ -16,7 +16,7 @@ export function LoadingSkeleton() {
         <h3 className="text-indigo-400 font-semibold text-lg">Analyzing your transcript...</h3>
         <p className="text-slate-500 text-sm mt-1">AI is extracting insights and scoring this deal</p>
         <div className="w-64 h-1.5 bg-slate-800 rounded-full mt-4 overflow-hidden">
-          <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-loading-bar" />
+          <div className="h-full bg-gradient-to-r from-indigo-500 to-accent-400 rounded-full animate-loading-bar" />
         </div>
       </div>
 

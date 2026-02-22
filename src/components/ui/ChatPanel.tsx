@@ -233,10 +233,10 @@ export function ChatPanel({
       <button
         onClick={onToggle}
         aria-label={open ? "Close AI assistant" : "Open AI assistant"}
-        className={`fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full shadow-lg shadow-indigo-500/25 flex items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
+        className={`fixed bottom-6 right-6 z-30 w-14 h-14 rounded-full shadow-lg shadow-accent-400/25 flex items-center justify-center transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
           open
             ? "bg-slate-800 border border-slate-600 rotate-0 scale-90"
-            : "bg-gradient-to-br from-indigo-500 to-violet-600 hover:from-indigo-400 hover:to-violet-500 hover:shadow-indigo-500/40 hover:scale-105"
+            : "bg-gradient-to-br from-indigo-500 to-violet-600 hover:from-indigo-400 hover:to-violet-500 hover:shadow-accent-400/40 hover:scale-105"
         }`}
       >
         {open ? (

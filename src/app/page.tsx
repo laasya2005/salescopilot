@@ -444,7 +444,7 @@ export default function Home() {
   const batchHasData = batchItems.length > 0 || batchDone || batchError;
 
   return (
-    <div className="min-h-screen bg-[#0A0F1E]">
+    <div className="min-h-screen bg-slate-950">
       {/* Session History Sidebar — left side */}
       <HistorySidebar
         entries={history}

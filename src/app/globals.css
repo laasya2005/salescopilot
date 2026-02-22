@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0A0F1E;
-  --foreground: #e2e8f0;
+  --background: #0B1C2D;
+  --foreground: #D6E1ED;
 }
 
 @theme inline {
@@ -10,6 +10,84 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Slate → Navy-toned neutrals anchored at Deep Navy #0B1C2D */
+  --color-slate-50: #F4F7FB;
+  --color-slate-100: #E1E8F0;
+  --color-slate-200: #C7D2DE;
+  --color-slate-300: #A3B4C8;
+  --color-slate-400: #7B90A8;
+  --color-slate-500: #566A82;
+  --color-slate-600: #3E5068;
+  --color-slate-700: #2A3B52;
+  --color-slate-800: #1A2B3E;
+  --color-slate-900: #112236;
+  --color-slate-950: #0B1C2D;
+
+  /* Indigo → Royal Blue #1E4ED8 */
+  --color-indigo-50: #EEF2FF;
+  --color-indigo-100: #D9E2FE;
+  --color-indigo-200: #B8C9FD;
+  --color-indigo-300: #8DA8FB;
+  --color-indigo-400: #5B80F5;
+  --color-indigo-500: #1E4ED8;
+  --color-indigo-600: #1A43BC;
+  --color-indigo-700: #16389E;
+  --color-indigo-800: #132E80;
+  --color-indigo-900: #102568;
+  --color-indigo-950: #0A1744;
+
+  /* Violet → Royal Blue adjacent tones */
+  --color-violet-50: #F0F0FF;
+  --color-violet-100: #DEDEFE;
+  --color-violet-200: #C0C0FD;
+  --color-violet-300: #9A9AFB;
+  --color-violet-400: #706FF5;
+  --color-violet-500: #4844DC;
+  --color-violet-600: #2E42C8;
+  --color-violet-700: #2636A8;
+  --color-violet-800: #1F2C88;
+  --color-violet-900: #1A246D;
+  --color-violet-950: #0F1548;
+
+  /* Cyan → Lantern Blue #3DA9FC */
+  --color-cyan-50: #EBF7FF;
+  --color-cyan-100: #D3EEFF;
+  --color-cyan-200: #ADE0FF;
+  --color-cyan-300: #7DCCFE;
+  --color-cyan-400: #3DA9FC;
+  --color-cyan-500: #1E8FE0;
+  --color-cyan-600: #1475BF;
+  --color-cyan-700: #105D9C;
+  --color-cyan-800: #0D4A7D;
+  --color-cyan-900: #0A3A64;
+  --color-cyan-950: #062440;
+
+  /* Teal → Lantern Blue variants */
+  --color-teal-50: #E8F8FE;
+  --color-teal-100: #CDEEFC;
+  --color-teal-200: #A3DFF9;
+  --color-teal-300: #6ECAF2;
+  --color-teal-400: #38B2E8;
+  --color-teal-500: #1D97CC;
+  --color-teal-600: #157DAD;
+  --color-teal-700: #11648E;
+  --color-teal-800: #0E5073;
+  --color-teal-900: #0B3F5C;
+  --color-teal-950: #07283C;
+
+  /* Accent → Soft Amber #F6C177 */
+  --color-accent-50: #FFF8ED;
+  --color-accent-100: #FFEED4;
+  --color-accent-200: #FDDBA8;
+  --color-accent-300: #F9C57C;
+  --color-accent-400: #F6C177;
+  --color-accent-500: #E8A84E;
+  --color-accent-600: #D08E32;
+  --color-accent-700: #AE7228;
+  --color-accent-800: #8D5B22;
+  --color-accent-900: #74491E;
+  --color-accent-950: #42280F;
 }
 
 body {
@@ -23,20 +101,20 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0F1E;
+  background: #0B1C2D;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #2A3B52;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #3E5068;
 }
 
 /* Select dropdown styling */
 select option {
-  background: #0A0F1E;
-  color: #e2e8f0;
+  background: #0B1C2D;
+  color: #D6E1ED;
 }
 
 /* Loading bar animation */

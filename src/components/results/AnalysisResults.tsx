@@ -11,9 +11,9 @@ import { companySlug } from "@/lib/slug";
 const INITIAL_SHOW = 3;
 
 function getScoreColor(value: number): string {
-  if (value >= 86) return "#6366f1"; // indigo-500 — Exceptional (brand)
+  if (value >= 86) return "#1E4ED8"; // Royal Blue — Exceptional (brand)
   if (value >= 71) return "#10b981"; // emerald-500 — Strong
-  if (value >= 56) return "#14b8a6"; // teal-500 — Promising
+  if (value >= 56) return "#38B2E8"; // teal-400 — Promising
   if (value >= 41) return "#eab308"; // yellow-500 — Moderate
   if (value >= 26) return "#f97316"; // orange-500 — Low
   return "#f43f5e";                  // rose-500 — Critical
@@ -181,7 +181,7 @@ export function AnalysisResults({ result, transcript, companyName, dealStage, so
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-accent-400/20 shrink-0">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -191,7 +191,7 @@ export function AnalysisResults({ result, transcript, companyName, dealStage, so
                 <p className="text-sm text-slate-400">Open Deal Room to track tasks, notes &amp; documents for this account</p>
               </div>
             </div>
-            <div className="shrink-0 flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/30 group-hover:scale-[1.02] transition-all text-sm">
+            <div className="shrink-0 flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg shadow-accent-400/20 group-hover:shadow-accent-400/30 group-hover:scale-[1.02] transition-all text-sm">
               Track this Deal
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -604,7 +604,7 @@ export function AnalysisResults({ result, transcript, companyName, dealStage, so
       </div>
 
       {/* AI Voice Coaching */}
-      <div className="bg-gradient-to-r from-slate-900/80 to-violet-950/30 rounded-xl border border-violet-500/20 p-5">
+      <div className="bg-gradient-to-r from-slate-900/80 to-accent-950/30 rounded-xl border border-accent-400/20 p-5">
         <h3 className="text-sm font-semibold text-violet-300 mb-3 flex items-center gap-2">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />

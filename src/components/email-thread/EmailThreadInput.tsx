@@ -39,7 +39,7 @@ export function EmailThreadInput({
       {loading && (
         <div className="absolute inset-0 z-10 rounded-xl">
           <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 rounded-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full animate-loading-bar" />
+            <div className="h-full bg-gradient-to-r from-indigo-500 to-accent-400 rounded-full animate-loading-bar" />
           </div>
           <div className="absolute inset-0 bg-slate-950/40 rounded-xl pointer-events-none" />
         </div>
@@ -143,7 +143,7 @@ export function EmailThreadInput({
         <button
           onClick={onAnalyze}
           disabled={loading}
-          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 disabled:from-slate-700 disabled:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-accent-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
         >
           {loading ? (
             <>
