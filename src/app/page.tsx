@@ -5,6 +5,7 @@ import type { InputMode, AnalysisResult, EventFormData, BatchItem, HistoryEntry 
 import { eventFormToTranscript } from "@/lib/event-form-to-transcript";
 import { ModeSwitcher } from "@/components/ui/ModeSwitcher";
 import { HistorySidebar } from "@/components/ui/HistorySidebar";
+import { ChatPanel } from "@/components/ui/ChatPanel";
 import { ErrorBanner } from "@/components/ui/ErrorBanner";
 import { TranscriptInput } from "@/components/transcript/TranscriptInput";
 import { EmailThreadInput } from "@/components/email-thread/EmailThreadInput";
@@ -53,6 +54,7 @@ export default function Home() {
   // ── Persistent history ──
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
   const [activeHistoryId, setActiveHistoryId] = useState<string | null>(null);
   const historyIdCounter = useRef(0);
 
@@ -76,16 +78,20 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  // ── Escape key to close sidebar ──
+  // ── Escape key to close sidebars (chat takes priority) ──
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && historyOpen) {
-        setHistoryOpen(false);
+      if (e.key === "Escape") {
+        if (chatOpen) {
+          setChatOpen(false);
+        } else if (historyOpen) {
+          setHistoryOpen(false);
+        }
       }
     }
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [historyOpen]);
+  }, [chatOpen, historyOpen]);
 
   // ── Transcript mode state ──
   const [transcript, setTranscript] = useState("");
@@ -439,7 +445,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#0A0F1E]">
-      {/* Session History Sidebar */}
+      {/* Session History Sidebar — left side */}
       <HistorySidebar
         entries={history}
         open={historyOpen}
@@ -447,6 +453,13 @@ export default function Home() {
         onSelect={restoreHistoryEntry}
         onRemove={removeHistoryEntry}
         activeEntryId={activeHistoryId}
+      />
+
+      {/* AI Chat Panel — bottom right floating */}
+      <ChatPanel
+        open={chatOpen}
+        onToggle={() => setChatOpen((v) => !v)}
+        history={history}
       />
 
       {/* Header */}

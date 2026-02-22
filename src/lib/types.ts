@@ -84,6 +84,28 @@ export interface HistoryEntry {
   eventForm?: EventFormData;
 }
 
+export type ChatMessageRole = "user" | "assistant";
+
+export interface ExtractedTask {
+  task: string;
+  owner: string;
+  deadline: string;
+  source: string;
+}
+
+export interface ChatMessage {
+  id: string;
+  role: ChatMessageRole;
+  content: string;
+  timestamp: number;
+  tasks?: ExtractedTask[];
+}
+
+export interface ChatSuggestedQuestion {
+  label: string;
+  question: string;
+}
+
 export type BatchItemStatus = "pending" | "processing" | "completed" | "error";
 
 export interface BatchItem {
@@ -96,4 +118,47 @@ export interface BatchItem {
   status: BatchItemStatus;
   result?: AnalysisResult;
   error?: string;
+}
+
+/* ── Workspace / Deal Room ── */
+
+export type TaskStatus = "pending" | "completed";
+export type TaskPriority = "low" | "medium" | "high";
+
+export interface WorkspaceTask {
+  id: string;
+  text: string;
+  status: TaskStatus;
+  priority: TaskPriority;
+  dueDate: string | null;
+  createdAt: number;
+  completedAt: number | null;
+  source: "ai" | "manual";
+  sourceEntryId?: string;
+}
+
+export interface WorkspaceNote {
+  id: string;
+  content: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export interface WorkspaceDocument {
+  id: string;
+  fileName: string;
+  originalName: string;
+  mimeType: string;
+  sizeBytes: number;
+  uploadedAt: number;
+}
+
+export interface WorkspaceData {
+  slug: string;
+  companyName: string;
+  createdAt: number;
+  updatedAt: number;
+  tasks: WorkspaceTask[];
+  notes: WorkspaceNote[];
+  documents: WorkspaceDocument[];
 }

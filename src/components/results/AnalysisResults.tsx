@@ -1,10 +1,12 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import type { AnalysisResult, CoachingScript } from "@/lib/types";
 import { ScoreRing } from "@/components/ui/ScoreRing";
 import { RiskBadge } from "@/components/ui/RiskBadge";
 import { useCopyToClipboard } from "@/lib/use-copy-to-clipboard";
+import { companySlug } from "@/lib/slug";
 
 const INITIAL_SHOW = 3;
 
@@ -140,6 +142,34 @@ export function AnalysisResults({ result, transcript, companyName, dealStage, so
 
   return (
     <div className="space-y-6">
+      {/* Track this Deal banner */}
+      {companyName && (
+        <Link
+          href={`/deal/${companySlug(companyName)}`}
+          className="block rounded-xl border border-indigo-500/30 bg-gradient-to-r from-indigo-600/15 via-violet-600/10 to-indigo-600/15 p-5 hover:border-indigo-500/50 hover:from-indigo-600/20 hover:via-violet-600/15 hover:to-indigo-600/20 transition-all group"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/20 shrink-0">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-base font-semibold text-white mb-0.5">{companyName}</p>
+                <p className="text-sm text-slate-400">Open Deal Room to track tasks, notes &amp; documents for this account</p>
+              </div>
+            </div>
+            <div className="shrink-0 flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/30 group-hover:scale-[1.02] transition-all text-sm">
+              Track this Deal
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </div>
+          </div>
+        </Link>
+      )}
+
       {/* Score Cards Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {/* Worth Chasing */}

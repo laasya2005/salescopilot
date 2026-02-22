@@ -1,5 +1,72 @@
 [
   {
+    "mode": "transcript",
+    "companyName": "BluePeak Field Services",
+    "leadScore": 85,
+    "worthChasing": true,
+    "dealRisk": "Medium",
+    "result": {
+      "leadScore": 85,
+      "leadScoreReasoning": "The buyer is actively evaluating options, has a clear budget, and a defined timeline for decision-making, indicating strong engagement.",
+      "worthChasing": true,
+      "worthChasingReasoning": "The buyer has expressed dissatisfaction with their current provider and is open to reviewing proposals, making this a promising opportunity.",
+      "dealRisk": "Medium",
+      "dealRiskReasoning": "The buyer is considering another provider (AT&T), which introduces competitive pressure and could impact the decision.",
+      "closeForecast": 75,
+      "closeForecastReasoning": "The buyer has a clear timeline and is willing to include the Director of Operations in the next meeting, which increases the likelihood of closing.",
+      "buyingSignals": [
+        {
+          "signal": "Urgency to make a decision",
+          "evidence": "Our contracts expire in about 75 days, so we'd like to make a decision within the next month."
+        },
+        {
+          "signal": "Budget allocation for switching providers",
+          "evidence": "We're currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us."
+        }
+      ],
+      "objections": [
+        {
+          "objection": "Considering other providers",
+          "evidence": "Yes, we've had an initial conversation with AT&T as well."
+        }
+      ],
+      "nextSteps": [
+        "Send a proposal and coverage maps to the buyer.",
+        "Schedule a follow-up meeting for Thursday afternoon with the Director of Operations.",
+        "Prepare a side-by-side coverage comparison and pricing breakdown."
+      ],
+      "followUpEmail": "Subject: Follow-Up on Our Discussion\n\nHi James,\n\nThank you for your time today. I appreciate you sharing your insights on your current mobile and data plans. As discussed, I will send over the proposal and coverage maps today. I look forward to our meeting on Thursday afternoon with your Director of Operations to review the side-by-side comparison and pricing breakdown. \n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n\n[Your Name]\n[Your Position]\n[Your Company]\n[Your Contact Information]",
+      "coachingSummary": "You did well in uncovering the buyer's pain points and establishing a clear timeline for decision-making. However, be cautious about the mention of a competitor and try to ask more probing questions about their evaluation criteria to strengthen your position.",
+      "suggestedQuestions": [
+        {
+          "question": "What specific features or services are most important to you in a new provider?",
+          "reason": "Understanding their priorities can help tailor the proposal to meet their needs."
+        },
+        {
+          "question": "What has been your experience with the current provider's customer service?",
+          "reason": "This can reveal potential weaknesses to address in your offering."
+        },
+        {
+          "question": "What metrics will you use to evaluate the success of a new provider?",
+          "reason": "Knowing their evaluation criteria can help in positioning your solution effectively."
+        },
+        {
+          "question": "Are there any specific concerns you have about switching providers?",
+          "reason": "Identifying concerns early can help mitigate objections later in the process."
+        },
+        {
+          "question": "What is the decision-making process like within your organization?",
+          "reason": "Understanding the hierarchy can help in navigating the approval process more effectively."
+        }
+      ]
+    },
+    "transcript": "Rep:\nThanks for joining today, James. I understand you're reviewing your company's mobile and data plans ahead of contract renewal. Can you share what's driving that evaluation?\nBuyer (James – IT Manager):\nYes, our current carrier's performance has been inconsistent, especially in remote areas where our technicians work. We've also had some unexpected billing increases over the past few months.\nRep:\nThat's helpful. How many active lines are we talking about?\nBuyer:\nAbout 48 mobile lines and 12 data-only SIMs for tablets.\nRep:\nGot it. Are the coverage issues impacting daily operations?\nBuyer:\nYes, especially when teams can't upload reports from job sites. It delays invoicing and sometimes affects customer satisfaction.\nRep:\nUnderstood. Have you allocated a budget range for switching providers?\nBuyer:\nWe're currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us.\nRep:\nAnd who would be involved in approving a change?\nBuyer:\nI'll handle the technical evaluation, but our Director of Operations will approve the final decision.\nRep:\nAre you speaking with other providers?\nBuyer:\nYes, we've had an initial conversation with AT&T as well.\nRep:\nWhat timeline are you working toward?\nBuyer:\nOur contracts expire in about 75 days, so we'd like to make a decision within the next month.\nRep:\nThat makes sense. Would it be helpful to review a side-by-side coverage comparison and pricing breakdown with your Director next week?\nBuyer:\nYes, that would be ideal. If you send over the proposal and schedule something for Thursday afternoon, I'll include him.\nRep:\nPerfect. I'll send that today along with coverage maps.\nBuyer:\nGreat, looking forward to reviewing it.",
+    "dealStage": "Demo",
+    "dealAmount": "78,000",
+    "id": "h-16-1771731057584",
+    "timestamp": 1771731057584
+  },
+  {
     "mode": "batch",
     "companyName": "Velocity Logistics Group",
     "leadScore": 45,
@@ -40,10 +107,10 @@
         "Research the VP's role and influence in the decision-making process.",
         "Prepare a competitive analysis to address potential pricing concerns."
       ],
-      "followUpEmail": "Subject: Proposal for Telecom Services\n\nHi Chris,\n\nThank you for taking the time to speak with me today. I appreciate your openness in discussing your current telecom needs. As mentioned, I will send over a proposal outlining our services and pricing options for your review. \n\nPlease let me know if there are any specific features or services you would like me to include. I look forward to your feedback and will follow up in a month to see if you have any questions.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nVelocity Logistics Group\n[Your Contact Information]",
+      "followUpEmail": "Subject: Proposal for Telecom Services\n\nHi Chris,\n\nThank you for taking the time to speak with me today. I appreciate your openness in discussing your current telecom needs. As mentioned, I will prepare a proposal for you that outlines our services and pricing options for your review. \n\nPlease let me know if there are any specific features or services you would like me to include. I look forward to your feedback and will follow up in a month to see if you have any questions.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nVelocity Logistics Group\n[Your Contact Information]",
       "coachingSummary": "You did well by engaging the buyer and asking relevant questions about their current situation. However, you could improve by probing deeper into their decision-making process and timeline to uncover more urgency. Additionally, addressing the lack of budget directly could help in understanding their constraints better."
     },
-    "transcript": "Rep: Thanks for taking the call, Chris. What brings you to evaluate new\ntelecom providers?\n\nBuyer (Chris – Network Admin): Honestly, just exploring. Our contract\nrenews next year.\n\nRep: Are you experiencing any issues?\n\nBuyer: Not major ones. Just checking pricing.\n\nRep: How many lines?\n\nBuyer: About 30.\n\nRep: Budget allocated?\n\nBuyer: No specific budget yet.\n\nRep: Who would approve changes?\n\nBuyer: Our VP would, but we haven’t discussed switching.\n\nRep: Timeline?\n\nBuyer: No rush. Maybe next year.\n\nRep: Would you like a proposal?\n\nBuyer: Sure, you can email something.",
+    "transcript": "Rep: Thanks for taking the call, Chris. What brings you to evaluate new\ntelecom providers?\n\nBuyer (Chris – Network Admin): Honestly, just exploring. Our contract\nrenews next year.\n\nRep: Are you experiencing any issues?\n\nBuyer: Not major ones. Just checking pricing.\n\nRep: How many lines?\n\nBuyer: About 30.\n\nRep: Budget allocated?\n\nBuyer: No specific budget yet.\n\nRep: Who would approve changes?\n\nBuyer: Our VP would, but we haven't discussed switching.\n\nRep: Timeline?\n\nBuyer: No rush. Maybe next year.\n\nRep: Would you like a proposal?\n\nBuyer: Sure, you can email something.",
     "dealStage": "Discovery",
     "dealAmount": "",
     "id": "h-13-1771721136820",
@@ -88,7 +155,7 @@
       "followUpEmail": "Subject: Follow-Up on Our Recent Discussion\n\nHi Raj,\n\nThank you for taking the time to discuss your upcoming port-in project with me. I appreciate the insights you shared regarding your needs for better pricing and 5G coverage. As discussed, I will send over the port-in process details shortly and would like to confirm our technical call for Monday. Please let me know a time that works best for you.\n\nLooking forward to our continued conversation.\n\nBest regards,\n[Your Name]\n[Your Position]\nCoreLink Solutions\n[Your Contact Information]",
       "coachingSummary": "You did well in uncovering the buyer's needs and establishing their timeline for the port-in. However, it would be beneficial to emphasize your unique selling points more strongly, especially in light of the competition. Additionally, ensure to follow up promptly with the requested details to maintain momentum."
     },
-    "transcript": "Rep: I understand you’re planning a bulk port-in. How many lines are we\ntalking about?\n\nBuyer (Raj – IT Director): We’re looking to move 120 lines from our\ncurrent carrier within the next 45 days.\n\nRep: What’s driving the move?\n\nBuyer: Pricing and better 5G coverage for our remote teams.\n\nRep: Current spend?\n\nBuyer: Around $18,000 per month.\n\nRep: Budget flexibility?\n\nBuyer: We need to stay within 10% of that range.\n\nRep: Decision maker?\n\nBuyer: I make the final call.\n\nRep: Are you evaluating other carriers?\n\nBuyer: Yes, AT&T and T-Mobile.\n\nRep: Next step?\n\nBuyer: Send the port-in process details and let’s schedule a technical\ncall Monday.",
+    "transcript": "Rep: I understand you're planning a bulk port-in. How many lines are we\ntalking about?\n\nBuyer (Raj – IT Director): We're looking to move 120 lines from our\ncurrent carrier within the next 45 days.\n\nRep: What's driving the move?\n\nBuyer: Pricing and better 5G coverage for our remote teams.\n\nRep: Current spend?\n\nBuyer: Around $18,000 per month.\n\nRep: Budget flexibility?\n\nBuyer: We need to stay within 10% of that range.\n\nRep: Decision maker?\n\nBuyer: I make the final call.\n\nRep: Are you evaluating other carriers?\n\nBuyer: Yes, AT&T and T-Mobile.\n\nRep: Next step?\n\nBuyer: Send the port-in process details and let's schedule a technical\ncall Monday.",
     "dealStage": "Discovery",
     "dealAmount": "",
     "id": "h-12-1771721124785",
@@ -112,7 +179,7 @@
       "buyingSignals": [
         {
           "signal": "Interest in switching providers",
-          "evidence": "Buyer: 'Possibly. We’re evaluating options.'"
+          "evidence": "Buyer: 'Possibly. We're evaluating options.'"
         },
         {
           "signal": "Specific pain point identified",
@@ -120,7 +187,7 @@
         },
         {
           "signal": "Willingness to review a proposal",
-          "evidence": "Buyer: 'Yes, send details and we’ll review internally.'"
+          "evidence": "Buyer: 'Yes, send details and we'll review internally.'"
         }
       ],
       "objections": [
@@ -139,7 +206,7 @@
       "followUpEmail": "Subject: Follow-Up on Our Recent Discussion\n\nHi Daniel,\n\nThank you for taking the time to speak with me at the booth. I appreciate you sharing the challenges you're facing with your current telecom provider, particularly regarding billing confusion. \n\nAs discussed, I will send over a detailed proposal next week for your review. Please let me know if there are any specific areas you would like us to address in the proposal.\n\nLooking forward to your feedback!\n\nBest regards,\n[Your Name]\n[Your Position]\nMetroTech Services\n[Your Contact Information]",
       "coachingSummary": "The sales rep effectively identified the buyer's pain points and engaged them in a discussion about their needs. They also secured a commitment to review a proposal, which is a positive step. However, the rep should focus on clarifying the timeline and decision-making process to better understand the urgency of the buyer's needs and to prepare for potential objections from the CFO."
     },
-    "transcript": "Rep: Hi Daniel, thanks for stopping by our booth. What challenges are\nyou facing with your current telecom provider?\n\nBuyer (Daniel – IT Lead): Mainly billing confusion. Some departments\nexceed data limits and we don’t notice until the invoice arrives.\n\nRep: How many lines are involved?\n\nBuyer: Around 40 mobile users.\n\nRep: What’s your monthly spend?\n\nBuyer: About $5,000 per month.\n\nRep: Are you actively considering switching?\n\nBuyer: Possibly. We’re evaluating options.\n\nRep: Who approves a change?\n\nBuyer: Our CFO would sign off.\n\nRep: What timeline are you considering?\n\nBuyer: Maybe later this year.\n\nRep: Would you be open to reviewing a proposal next week?\n\nBuyer: Yes, send details and we’ll review internally.",
+    "transcript": "Rep: Hi Daniel, thanks for stopping by our booth. What challenges are\nyou facing with your current telecom provider?\n\nBuyer (Daniel – IT Lead): Mainly billing confusion. Some departments\nexceed data limits and we don't notice until the invoice arrives.\n\nRep: How many lines are involved?\n\nBuyer: Around 40 mobile users.\n\nRep: What's your monthly spend?\n\nBuyer: About $5,000 per month.\n\nRep: Are you actively considering switching?\n\nBuyer: Possibly. We're evaluating options.\n\nRep: Who approves a change?\n\nBuyer: Our CFO would sign off.\n\nRep: What timeline are you considering?\n\nBuyer: Maybe later this year.\n\nRep: Would you be open to reviewing a proposal next week?\n\nBuyer: Yes, send details and we'll review internally.",
     "dealStage": "Demo",
     "dealAmount": "",
     "id": "h-11-1771721114928",
@@ -167,13 +234,13 @@
         },
         {
           "signal": "Willingness to switch providers",
-          "evidence": "if we can stay around that range and improve coverage, we’re ready to switch."
+          "evidence": "if we can stay around that range and improve coverage, we're ready to switch."
         }
       ],
       "objections": [
         {
           "objection": "Potential competition from another provider",
-          "evidence": "We spoke with Verizon briefly, but we haven’t gone far with them."
+          "evidence": "We spoke with Verizon briefly, but we haven't gone far with them."
         }
       ],
       "nextSteps": [
@@ -184,7 +251,7 @@
       "followUpEmail": "Subject: Follow-Up on Our Meeting\n\nHi Laura,\n\nThank you for taking the time to meet with me today. I appreciate your insights into your mobility needs and the urgency to improve coverage for your team. As discussed, I will send over the proposal today, and I look forward to our pricing review meeting on Friday.\n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nSkyBridge Infrastructure\n[Your Contact Information]",
       "coachingSummary": "You did well in establishing rapport and understanding the buyer's needs, which helped uncover their urgency to switch providers. However, be cautious about the mention of Verizon as a competitor; it would be beneficial to ask more about their discussions with other providers to position your solution effectively. Additionally, ensure to follow up promptly with the proposal to maintain momentum."
     },
-    "transcript": "Rep: Thanks for meeting today, Laura. I understand you’re reviewing your\ncompany’s mobility plans ahead of contract renewal. What’s prompting\nthat?\n\nBuyer (Laura – Operations Director): We’ve grown quickly this year and\nour current carrier can’t keep up. Coverage drops are affecting our\nfield supervisors.\n\nRep: How many active lines are you managing?\n\nBuyer: About 82 mobile lines and 20 data-only tablets.\n\nRep: That’s significant. What’s your current monthly spend?\n\nBuyer: Roughly $12,000 per month.\n\nRep: And are you working within a similar budget range?\n\nBuyer: Yes, if we can stay around that range and improve coverage, we’re\nready to switch.\n\nRep: Who would make the final decision?\n\nBuyer: I will. I’m responsible for vendor selection.\n\nRep: What timeline are you targeting?\n\nBuyer: We need this resolved before peak season in six weeks.\n\nRep: Are you speaking with any other providers?\n\nBuyer: We spoke with Verizon briefly, but we haven’t gone far with them.\n\nRep: Would it make sense to schedule a pricing review tomorrow?\n\nBuyer: Yes, send the proposal today and let’s meet Friday to finalize.",
+    "transcript": "Rep: Thanks for meeting today, Laura. I understand you're reviewing your\ncompany's mobility plans ahead of contract renewal. What's prompting\nthat?\n\nBuyer (Laura – Operations Director): We've grown quickly this year and\nour current carrier can't keep up. Coverage drops are affecting our\nfield supervisors.\n\nRep: How many active lines are you managing?\n\nBuyer: About 82 mobile lines and 20 data-only tablets.\n\nRep: That's significant. What's your current monthly spend?\n\nBuyer: Roughly $12,000 per month.\n\nRep: And are you working within a similar budget range?\n\nBuyer: Yes, if we can stay around that range and improve coverage, we're\nready to switch.\n\nRep: Who would make the final decision?\n\nBuyer: I will. I'm responsible for vendor selection.\n\nRep: What timeline are you targeting?\n\nBuyer: We need this resolved before peak season in six weeks.\n\nRep: Are you speaking with any other providers?\n\nBuyer: We spoke with Verizon briefly, but we haven't gone far with them.\n\nRep: Would it make sense to schedule a pricing review tomorrow?\n\nBuyer: Yes, send the proposal today and let's meet Friday to finalize.",
     "dealStage": "Discovery",
     "dealAmount": "",
     "id": "h-10-1771721105272",
@@ -235,7 +302,7 @@
         "Provide case studies relevant to Technovate's industry.",
         "Clarify the migration path from Snowflake to your platform."
       ],
-      "followUpEmail": "Subject: Next Steps and Answers to Your Questions\n\nHi Sarah,\n\nThank you for your thoughtful questions and for sharing the case study with David. I'm glad to hear that the results resonated with you both. \n\nTo address your inquiries:\n1. Our platform efficiently handles real-time streaming data, processing millions of events per hour with minimal latency.\n2. The migration path from Snowflake is designed to be seamless, and I can provide a detailed plan during our call.\n3. Regarding pricing, I can prepare a tailored proposal for your team of 40 analysts, ensuring it aligns with your budget.\n\nI’d love to schedule a call with you and David this week or early next week to discuss these points in detail and ensure we’re aligned before your budget review. Please let me know your availability.\n\nLooking forward to your response!\n\nBest,\nAlex Rivera\nAccount Executive",
+      "followUpEmail": "Subject: Next Steps and Answers to Your Questions\n\nHi Sarah,\n\nThank you for your thoughtful questions and for sharing the case study with David. I'm glad to hear that the results resonated with you both. \n\nTo address your inquiries:\n1. Our platform efficiently handles real-time streaming data, processing millions of events per hour with minimal latency.\n2. The migration path from Snowflake is designed to be seamless, and I can provide a detailed plan during our call.\n3. Regarding pricing, I can prepare a tailored proposal for your team of 40 analysts, ensuring it aligns with your budget.\n\nI'd love to schedule a call with you and David this week or early next week to discuss these points in detail and ensure we're aligned before your budget review. Please let me know your availability.\n\nLooking forward to your response!\n\nBest,\nAlex Rivera\nAccount Executive",
       "coachingSummary": "You did well in establishing rapport and providing relevant case studies, which helped engage the prospect. However, be cautious about the budget constraints mentioned and the competitive landscape. Ensure you address the prospect's questions thoroughly in your follow-up and maintain a proactive approach in scheduling the next call. Consider emphasizing your platform's unique value proposition to differentiate from competitors."
     },
     "transcript": "From: sarah.chen@technovate.io\n  To: you@yourcompany.com\n  Subject: Re: Re: Re: Following up on your data platform needs\n  Date: Feb 20, 2026\n\n  Hi,\n\n  Thanks for sending over the case study — the results Meridian Corp saw were impressive. I shared it with our CTO (David Park) and he\n  had a few questions:\n\n  1. How does your platform handle real-time streaming data? We process about 2M events/hour during peak.\n  2. What does the migration path look like from our current Snowflake setup?\n  3. Can we get a ballpark on pricing for a team of ~40 analysts?\n\n  David is keen to join the next call if we can get it scheduled this week or early next. He's the final sign-off on tools over\n  $50K/year.\n\n  Also — heads up, we're also evaluating Databricks and have a demo with them next Tuesday. I want to make sure we're comparing apples\n  to apples before our Q2 budget review on March 15.\n\n  Best,\n  Sarah Chen\n  VP of Data Engineering | Technovate\n\n  ---\n\n  From: you@yourcompany.com\n  To: sarah.chen@technovate.io\n  Subject: Re: Re: Following up on your data platform needs\n  Date: Feb 18, 2026\n\n  Hi Sarah,\n\n  Great speaking with you yesterday! As promised, I'm attaching the Meridian Corp case study — they had a very similar Snowflake\n  migration and saw 40% cost reduction within 6 months.\n\n  I'd love to set up a technical deep-dive with your engineering team. Would next week work?\n\n  Best,\n  Alex\n\n  ---\n\n  From: sarah.chen@technovate.io\n  To: you@yourcompany.com\n  Subject: Re: Following up on your data platform needs\n  Date: Feb 14, 2026\n\n  Hi Alex,\n\n  Sorry for the delayed reply — it's been a hectic sprint. Yes, I'd be open to a quick 20-min call to discuss. We're definitely feeling\n   the pain with our current setup — query times are through the roof and we're spending way too much on compute.\n\n  That said, I should be upfront: we don't have a huge budget right now. Our CFO has been tightening things up, so anything over\n  $80K/year would be a tough sell without very clear ROI numbers.\n\n  Can you send over any case studies from companies in our space (B2B SaaS, 200-500 employees)?\n\n  Thanks,\n  Sarah\n\n  ---\n\n  From: you@yourcompany.com\n  To: sarah.chen@technovate.io\n  Subject: Following up on your data platform needs\n  Date: Feb 10, 2026\n\n  Hi Sarah,\n\n  I came across Technovate's recent Series C announcement — congrats! As you scale your data team, I wanted to reach out about how our\n  platform has helped similar B2B SaaS companies cut data infrastructure costs by 30-50% while improving query performance.\n\n  Would you be open to a brief call next week to see if there's a fit?\n\n  Best regards,\n  Alex Rivera\n  Account Executive",
@@ -244,242 +311,6 @@
     "threadContext": "Cold outreach that converted to active evaluation",
     "id": "h-9-1771720947274",
     "timestamp": 1771720947274
-  },
-  {
-    "mode": "transcript",
-    "companyName": "BluePeak Field Services",
-    "leadScore": 85,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 85,
-      "leadScoreReasoning": "The buyer is actively evaluating options due to dissatisfaction with their current provider and has a clear budget and timeline.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The buyer has expressed a strong need for improved service and is already engaged in discussions with competitors, indicating a serious intent to switch.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "While the buyer is motivated to switch, they are considering another provider, which introduces competition and potential pricing concerns.",
-      "closeForecast": 75,
-      "closeForecastReasoning": "The buyer has a defined timeline and is open to reviewing a proposal, but the involvement of a Director for final approval adds some uncertainty.",
-      "buyingSignals": [
-        {
-          "signal": "Urgency to switch providers due to performance issues.",
-          "evidence": "Yes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work."
-        },
-        {
-          "signal": "Budget discussions indicating readiness to invest.",
-          "evidence": "We’re currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us."
-        },
-        {
-          "signal": "Defined timeline for decision-making.",
-          "evidence": "Our contracts expire in about 75 days, so we’d like to make a decision within the next month."
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Considering another provider.",
-          "evidence": "Yes, we’ve had an initial conversation with AT&T as well."
-        }
-      ],
-      "nextSteps": [
-        "Send the proposal and coverage maps to the buyer by the end of the day.",
-        "Schedule a follow-up meeting for Thursday afternoon with the Director of Operations.",
-        "Prepare a side-by-side coverage comparison and pricing breakdown for the meeting."
-      ],
-      "followUpEmail": "Subject: Follow-Up on Our Discussion\n\nHi James,\n\nThank you for taking the time to meet with me today. I appreciate your insights into your current challenges with mobile and data services. As discussed, I will send over the proposal and coverage maps by the end of the day. I look forward to our meeting on Thursday afternoon with your Director of Operations to review the details together.\n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n\n[Your Name]\n[Your Position]\n[Your Company]\n[Your Contact Information]",
-      "coachingSummary": "You did well in uncovering the buyer's pain points and establishing a clear timeline for decision-making. However, be mindful of the competition and ensure you highlight your unique value proposition in the follow-up. Additionally, proactively addressing potential objections regarding pricing could strengthen your position."
-    },
-    "transcript": "Rep:\nThanks for joining today, James. I understand you're reviewing your company’s mobile and data plans ahead of contract renewal. Can you share what’s driving that evaluation?\nBuyer (James – IT Manager):\nYes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work. We’ve also had some unexpected billing increases over the past few months.\nRep:\nThat’s helpful. How many active lines are we talking about?\nBuyer:\nAbout 48 mobile lines and 12 data-only SIMs for tablets.\nRep:\nGot it. Are the coverage issues impacting daily operations?\nBuyer:\nYes, especially when teams can’t upload reports from job sites. It delays invoicing and sometimes affects customer satisfaction.\nRep:\nUnderstood. Have you allocated a budget range for switching providers?\nBuyer:\nWe’re currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us.\nRep:\nAnd who would be involved in approving a change?\nBuyer:\nI’ll handle the technical evaluation, but our Director of Operations will approve the final decision.\nRep:\nAre you speaking with other providers?\nBuyer:\nYes, we’ve had an initial conversation with AT&T as well.\nRep:\nWhat timeline are you working toward?\nBuyer:\nOur contracts expire in about 75 days, so we’d like to make a decision within the next month.\nRep:\nThat makes sense. Would it be helpful to review a side-by-side coverage comparison and pricing breakdown with your Director next week?\nBuyer:\nYes, that would be ideal. If you send over the proposal and schedule something for Thursday afternoon, I’ll include him.\nRep:\nPerfect. I’ll send that today along with coverage maps.\nBuyer:\nGreat, looking forward to reviewing it.\n",
-    "dealStage": "Demo",
-    "dealAmount": "$78,000 annually",
-    "id": "h-8-1771720798070",
-    "timestamp": 1771720798070
-  },
-  {
-    "mode": "batch",
-    "companyName": "Velocity Logistics Group",
-    "leadScore": 85,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 85,
-      "leadScoreReasoning": "The buyer is actively seeking a solution due to current service issues and has budget authority, indicating a high level of engagement.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The buyer is ready to switch providers and has a clear timeline, making this a strong opportunity.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "While the buyer is engaged and has decision-making authority, there is mention of another provider, which introduces competition.",
-      "closeForecast": 75,
-      "closeForecastReasoning": "The buyer has expressed readiness to move forward quickly, but the presence of a competitor slightly lowers the confidence in closing.",
-      "buyingSignals": [
-        {
-          "signal": "Urgency to resolve issues before peak season",
-          "evidence": "We need this resolved before peak season in six weeks."
-        },
-        {
-          "signal": "Budget alignment with current spending",
-          "evidence": "Yes, if we can stay around that range and improve coverage, we’re ready to switch."
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Potential competition from another provider",
-          "evidence": "We spoke with Verizon briefly, but we haven’t gone far with them."
-        }
-      ],
-      "nextSteps": [
-        "Send the proposal today.",
-        "Schedule a pricing review meeting for Friday.",
-        "Prepare to address any questions or concerns during the Friday meeting."
-      ],
-      "followUpEmail": "Subject: Follow-Up on Our Meeting\n\nHi Laura,\n\nThank you for taking the time to meet with me today. I appreciate your insights regarding your mobility plans and the challenges you're facing with your current carrier. As discussed, I will send over the proposal today, and I look forward to our pricing review meeting on Friday to finalize details. \n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n[Your Name]\n[Your Position]\nVelocity Logistics Group\n[Your Contact Information]",
-      "coachingSummary": "You did well in identifying the buyer's pain points and aligning your solution with their needs. However, be cautious about the mention of a competitor and ensure you differentiate your offering effectively. Additionally, confirm the proposal is sent promptly to maintain momentum."
-    },
-    "transcript": "Rep: Thanks for meeting today, Laura. I understand you’re reviewing your\ncompany’s mobility plans ahead of contract renewal. What’s prompting\nthat?\n\nBuyer (Laura – Operations Director): We’ve grown quickly this year and\nour current carrier can’t keep up. Coverage drops are affecting our\nfield supervisors.\n\nRep: How many active lines are you managing?\n\nBuyer: About 82 mobile lines and 20 data-only tablets.\n\nRep: That’s significant. What’s your current monthly spend?\n\nBuyer: Roughly $12,000 per month.\n\nRep: And are you working within a similar budget range?\n\nBuyer: Yes, if we can stay around that range and improve coverage, we’re\nready to switch.\n\nRep: Who would make the final decision?\n\nBuyer: I will. I’m responsible for vendor selection.\n\nRep: What timeline are you targeting?\n\nBuyer: We need this resolved before peak season in six weeks.\n\nRep: Are you speaking with any other providers?\n\nBuyer: We spoke with Verizon briefly, but we haven’t gone far with them.\n\nRep: Would it make sense to schedule a pricing review tomorrow?\n\nBuyer: Yes, send the proposal today and let’s meet Friday to finalize.",
-    "dealStage": "Discovery",
-    "dealAmount": "",
-    "id": "h-7-1771719980805",
-    "timestamp": 1771719980805
-  },
-  {
-    "mode": "batch",
-    "companyName": "CoreLink Solutions",
-    "leadScore": 70,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 70,
-      "leadScoreReasoning": "The buyer has a clear challenge with their current provider and is open to evaluating options, indicating a moderate level of engagement.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The buyer's willingness to review a proposal and their timeline for potential change later this year suggest a viable opportunity.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "The buyer has not committed to switching and requires approval from the CFO, which introduces uncertainty.",
-      "closeForecast": 60,
-      "closeForecastReasoning": "While there is interest and a timeline, the lack of a definitive commitment and the need for CFO approval lowers the probability of closing.",
-      "buyingSignals": [
-        {
-          "signal": "Willingness to evaluate options",
-          "evidence": "Buyer: 'We’re evaluating options.'"
-        },
-        {
-          "signal": "Timeline for potential change",
-          "evidence": "Buyer: 'Maybe later this year.'"
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Need for CFO approval",
-          "evidence": "Buyer: 'Our CFO would sign off.'"
-        }
-      ],
-      "nextSteps": [
-        "Send a detailed proposal to Daniel by next week.",
-        "Follow up with Daniel a few days after sending the proposal to discuss any questions.",
-        "Prepare for a potential meeting with the CFO to address any concerns.",
-        "Gather additional information on CoreLink Solutions' offerings to strengthen the proposal."
-      ],
-      "followUpEmail": "Subject: Follow-Up on Our Recent Discussion\n\nHi Daniel,\n\nThank you for taking the time to speak with me at the booth. I appreciate you sharing the challenges you're facing with billing confusion and the impact on your departments. As discussed, I will send over a detailed proposal next week for your review. \n\nPlease let me know if there are any specific areas you would like us to address in the proposal. I look forward to your feedback and hope to assist you in finding a solution that fits your needs.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nCoreLink Solutions\n[Your Contact Information]",
-      "coachingSummary": "The sales rep did well by identifying the buyer's pain points and engaging them in a discussion about their current telecom provider. However, they could improve by probing deeper into the decision-making process and ensuring they understand any potential objections from the CFO. Additionally, setting a specific follow-up date could enhance the urgency and accountability in the sales process."
-    },
-    "transcript": "Rep: Hi Daniel, thanks for stopping by our booth. What challenges are\nyou facing with your current telecom provider?\n\nBuyer (Daniel – IT Lead): Mainly billing confusion. Some departments\nexceed data limits and we don’t notice until the invoice arrives.\n\nRep: How many lines are involved?\n\nBuyer: Around 40 mobile users.\n\nRep: What’s your monthly spend?\n\nBuyer: About $5,000 per month.\n\nRep: Are you actively considering switching?\n\nBuyer: Possibly. We’re evaluating options.\n\nRep: Who approves a change?\n\nBuyer: Our CFO would sign off.\n\nRep: What timeline are you considering?\n\nBuyer: Maybe later this year.\n\nRep: Would you be open to reviewing a proposal next week?\n\nBuyer: Yes, send details and we’ll review internally.",
-    "dealStage": "Discovery",
-    "dealAmount": "",
-    "id": "h-6-1771719970458",
-    "timestamp": 1771719970458
-  },
-  {
-    "mode": "batch",
-    "companyName": "MetroTech Services",
-    "leadScore": 75,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 75,
-      "leadScoreReasoning": "The buyer has a clear need for 120 lines and is the decision maker, indicating strong engagement and authority.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The buyer is actively looking to switch carriers soon, which presents a timely opportunity for MetroTech Services.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "The buyer is evaluating competitors AT&T and T-Mobile, which introduces risk as they may choose a different provider based on pricing or coverage.",
-      "closeForecast": 70,
-      "closeForecastReasoning": "The buyer has a defined budget and timeline, but competition and the need to stay within budget create uncertainty.",
-      "buyingSignals": [
-        {
-          "signal": "Urgency to switch carriers",
-          "evidence": "We're looking to move 120 lines from our current carrier within the next 45 days."
-        },
-        {
-          "signal": "Budget discussion",
-          "evidence": "We need to stay within 10% of that range."
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Competitor evaluation",
-          "evidence": "Yes, AT&T and T-Mobile."
-        }
-      ],
-      "nextSteps": [
-        "Send the port-in process details to the buyer.",
-        "Schedule a technical call for Monday.",
-        "Prepare a competitive analysis highlighting advantages over AT&T and T-Mobile."
-      ],
-      "followUpEmail": "Subject: Follow-Up on Our Recent Discussion\n\nHi Raj,\n\nThank you for the productive conversation regarding your upcoming port-in of 120 lines. I will send over the port-in process details as discussed and look forward to our technical call on Monday. If you have any questions in the meantime, please don't hesitate to reach out.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nMetroTech Services\n[Your Contact Information]",
-      "coachingSummary": "You did well by identifying the buyer's needs and confirming their authority in the decision-making process. However, be cautious of the competitive landscape; consider preparing a tailored proposal that highlights MetroTech's unique advantages over AT&T and T-Mobile. Additionally, ensure that you follow up promptly with the requested details to maintain momentum."
-    },
-    "transcript": "Rep: I understand you’re planning a bulk port-in. How many lines are we\ntalking about?\n\nBuyer (Raj – IT Director): We’re looking to move 120 lines from our\ncurrent carrier within the next 45 days.\n\nRep: What’s driving the move?\n\nBuyer: Pricing and better 5G coverage for our remote teams.\n\nRep: Current spend?\n\nBuyer: Around $18,000 per month.\n\nRep: Budget flexibility?\n\nBuyer: We need to stay within 10% of that range.\n\nRep: Decision maker?\n\nBuyer: I make the final call.\n\nRep: Are you evaluating other carriers?\n\nBuyer: Yes, AT&T and T-Mobile.\n\nRep: Next step?\n\nBuyer: Send the port-in process details and let’s schedule a technical\ncall Monday.",
-    "dealStage": "Discovery",
-    "dealAmount": "",
-    "id": "h-5-1771719959002",
-    "timestamp": 1771719959002
-  },
-  {
-    "mode": "batch",
-    "companyName": "SkyBridge Infrastructure",
-    "leadScore": 45,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 45,
-      "leadScoreReasoning": "The buyer is exploring options but has no specific budget or urgency, indicating a low level of engagement.",
-      "worthChasing": true,
-      "worthChasingReasoning": "Despite the lack of urgency, the buyer is open to receiving a proposal, which presents an opportunity to engage further.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "The buyer has not discussed switching with decision-makers and has no allocated budget, which introduces uncertainty.",
-      "closeForecast": 30,
-      "closeForecastReasoning": "Given the buyer's timeline and lack of urgency, the probability of closing this deal soon is low.",
-      "buyingSignals": [
-        {
-          "signal": "Exploring options for telecom providers",
-          "evidence": "Buyer: 'Honestly, just exploring. Our contract renews next year.'"
-        },
-        {
-          "signal": "Open to receiving a proposal",
-          "evidence": "Buyer: 'Sure, you can email something.'"
-        }
-      ],
-      "objections": [
-        {
-          "objection": "No specific budget allocated",
-          "evidence": "Buyer: 'No specific budget yet.'"
-        },
-        {
-          "objection": "No urgency to switch providers",
-          "evidence": "Buyer: 'No rush. Maybe next year.'"
-        }
-      ],
-      "nextSteps": [
-        "Email a proposal to Chris outlining potential pricing and services.",
-        "Follow up with Chris in two weeks to discuss the proposal.",
-        "Identify and gather information on the VP who approves changes.",
-        "Research competitive offerings to strengthen the proposal.",
-        "Prepare a case study or testimonial to include in the follow-up."
-      ],
-      "followUpEmail": "Subject: Proposal for Your Telecom Needs\n\nHi Chris,\n\nThank you for taking the time to speak with me today. I appreciate your openness in discussing your current telecom situation. As mentioned, I will prepare a proposal for you that outlines our services and pricing options.\n\nI will send this over shortly, and I would love to follow up in a couple of weeks to discuss any questions you might have.\n\nBest regards,\n\n[Your Name]\n[Your Position]\nSkyBridge Infrastructure\n[Your Contact Information]",
-      "coachingSummary": "You did well by asking open-ended questions to understand the buyer's current situation. However, you could improve by probing deeper into the decision-making process and timeline. Additionally, addressing the lack of urgency and budget concerns more proactively could help in moving the deal forward."
-    },
-    "transcript": "Rep: Thanks for taking the call, Chris. What brings you to evaluate new\ntelecom providers?\n\nBuyer (Chris – Network Admin): Honestly, just exploring. Our contract\nrenews next year.\n\nRep: Are you experiencing any issues?\n\nBuyer: Not major ones. Just checking pricing.\n\nRep: How many lines?\n\nBuyer: About 30.\n\nRep: Budget allocated?\n\nBuyer: No specific budget yet.\n\nRep: Who would approve changes?\n\nBuyer: Our VP would, but we haven’t discussed switching.\n\nRep: Timeline?\n\nBuyer: No rush. Maybe next year.\n\nRep: Would you like a proposal?\n\nBuyer: Sure, you can email something.",
-    "dealStage": "Discovery",
-    "dealAmount": "",
-    "id": "h-4-1771719950906",
-    "timestamp": 1771719950906
   },
   {
     "mode": "event-form",
@@ -529,7 +360,7 @@
         "Schedule a pricing and review call with the Director of Operations for next Thursday.",
         "Prepare to address potential concerns regarding competitor offerings during the next call."
       ],
-      "followUpEmail": "Subject: Follow-Up on Our Conversation at Telecom Mobility Solutions Expo\n\nHi James,\n\nThank you for taking the time to discuss your mobile coverage needs at the Telecom Mobility Solutions Expo. I appreciate your insights regarding the challenges you're facing with inconsistent coverage and unexpected billing increases.\n\nAs discussed, I will send over the coverage maps and a detailed proposal shortly. Additionally, I would like to confirm our call with your Director of Operations next Thursday to review pricing and explore how we can address your needs effectively.\n\nPlease let me know if there’s anything specific you would like me to prepare for our upcoming conversation.\n\nLooking forward to your response.\n\nBest regards,\n\n[Your Name]\n[Your Position]\n[Your Company]\n[Your Contact Information]",
+      "followUpEmail": "Subject: Follow-Up on Our Conversation at Telecom Mobility Solutions Expo\n\nHi James,\n\nThank you for taking the time to discuss your mobile coverage needs at the Telecom Mobility Solutions Expo. I appreciate your insights regarding the challenges you're facing with inconsistent coverage and unexpected billing increases.\n\nAs discussed, I will send over the coverage maps and a detailed proposal shortly. Additionally, I would like to confirm our call with your Director of Operations next Thursday to review pricing and explore how we can address your needs effectively.\n\nPlease let me know if there's anything specific you would like me to prepare for our upcoming conversation.\n\nLooking forward to your response.\n\nBest regards,\n\n[Your Name]\n[Your Position]\n[Your Company]\n[Your Contact Information]",
       "coachingSummary": "You did well to identify the prospect's pain points and establish a timeline for resolution. However, be mindful of the decision-making structure and ensure you engage with all relevant stakeholders moving forward. It would be beneficial to gather more information about the competitor's offerings to better position your proposal."
     },
     "eventForm": {
@@ -546,114 +377,10 @@
       "competitorsMentioned": "AT&T",
       "interestLevel": "Warm",
       "nextStepsDiscussed": "•\tRep to send coverage maps and detailed proposal\n•\tSchedule pricing & review call with Director next Thursday",
-      "notableQuotes": "•\t“Coverage has been inconsistent in remote areas.”\n•\t“We’ve had some unexpected billing increases.”\n•\t“If we can improve coverage and maintain similar costs, that would make sense for us.”\n•\t“Our Director of Operations will approve the final decision.”",
+      "notableQuotes": "•\t"Coverage has been inconsistent in remote areas."\n•\t"We've had some unexpected billing increases."\n•\t"If we can improve coverage and maintain similar costs, that would make sense for us."\n•\t"Our Director of Operations will approve the final decision."",
       "additionalNotes": "Prospect is actively evaluating alternatives before contract renewal. Competitor AT&T already in early discussions. Primary decision drivers are rural coverage reliability and predictable billing. Strong opportunity if proposal demonstrates better coverage performance and cost stability."
     },
     "id": "h-3-1771719852615",
     "timestamp": 1771719852615
-  },
-  {
-    "mode": "email-thread",
-    "companyName": "Technovate ",
-    "leadScore": 85,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 85,
-      "leadScoreReasoning": "The prospect is actively engaged, has shared the case study with a decision-maker, and is asking detailed questions about the platform, indicating strong interest.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The prospect has a clear budget and timeline, and they are evaluating solutions, which presents a good opportunity for the sales rep.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "The prospect mentioned evaluating a competitor (Databricks) and has budget constraints that could impact the decision.",
-      "closeForecast": 70,
-      "closeForecastReasoning": "While there is strong engagement and interest, the competitor evaluation and budget concerns introduce uncertainty in the closing probability.",
-      "buyingSignals": [
-        {
-          "signal": "Requesting pricing information",
-          "evidence": "Can we get a ballpark on pricing for a team of ~40 analysts?"
-        },
-        {
-          "signal": "Involving a decision-maker in the process",
-          "evidence": "David is keen to join the next call if we can get it scheduled this week or early next."
-        },
-        {
-          "signal": "Expressing urgency regarding budget review",
-          "evidence": "I want to make sure we're comparing apples to apples before our Q2 budget review on March 15."
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Budget constraints mentioned",
-          "evidence": "That said, I should be upfront: we don't have a huge budget right now."
-        },
-        {
-          "objection": "Evaluating a competitor",
-          "evidence": "we're also evaluating Databricks and have a demo with them next Tuesday."
-        }
-      ],
-      "nextSteps": [
-        "Schedule a technical deep-dive call with Sarah and David Park.",
-        "Prepare detailed pricing information tailored for a team of 40 analysts.",
-        "Gather additional case studies relevant to B2B SaaS companies.",
-        "Follow up after the demo with Databricks to reinforce value proposition."
-      ],
-      "followUpEmail": "Subject: Next Steps and Pricing Information\n\nHi Sarah,\n\nThank you for your detailed questions and for sharing the case study with David. I’d be happy to schedule a call this week to dive deeper into how our platform can handle your real-time streaming data needs and outline the migration path from Snowflake.\n\nRegarding pricing, I can provide a tailored estimate for your team of 40 analysts during our call. Please let me know your availability, and I’ll coordinate with David as well.\n\nLooking forward to your response!\n\nBest,\nAlex Rivera\nAccount Executive",
-      "coachingSummary": "You did a great job of engaging the prospect and providing relevant case studies, which helped build interest. However, consider being more proactive in addressing budget concerns and competitor mentions in your follow-up. Clearer CTAs and a more personalized approach in your emails could enhance your communication effectiveness."
-    },
-    "transcript": "From: sarah.chen@technovate.io\n  To: you@yourcompany.com\n  Subject: Re: Re: Re: Following up on your data platform needs\n  Date: Feb 20, 2026\n\n  Hi,\n\n  Thanks for sending over the case study — the results Meridian Corp saw were impressive. I shared it with our CTO (David Park) and he\n  had a few questions:\n\n  1. How does your platform handle real-time streaming data? We process about 2M events/hour during peak.\n  2. What does the migration path look like from our current Snowflake setup?\n  3. Can we get a ballpark on pricing for a team of ~40 analysts?\n\n  David is keen to join the next call if we can get it scheduled this week or early next. He's the final sign-off on tools over\n  $50K/year.\n\n  Also — heads up, we're also evaluating Databricks and have a demo with them next Tuesday. I want to make sure we're comparing apples\n  to apples before our Q2 budget review on March 15.\n\n  Best,\n  Sarah Chen\n  VP of Data Engineering | Technovate\n\n  ---\n\n  From: you@yourcompany.com\n  To: sarah.chen@technovate.io\n  Subject: Re: Re: Following up on your data platform needs\n  Date: Feb 18, 2026\n\n  Hi Sarah,\n\n  Great speaking with you yesterday! As promised, I'm attaching the Meridian Corp case study — they had a very similar Snowflake\n  migration and saw 40% cost reduction within 6 months.\n\n  I'd love to set up a technical deep-dive with your engineering team. Would next week work?\n\n  Best,\n  Alex\n\n  ---\n\n  From: sarah.chen@technovate.io\n  To: you@yourcompany.com\n  Subject: Re: Following up on your data platform needs\n  Date: Feb 14, 2026\n\n  Hi Alex,\n\n  Sorry for the delayed reply — it's been a hectic sprint. Yes, I'd be open to a quick 20-min call to discuss. We're definitely feeling\n   the pain with our current setup — query times are through the roof and we're spending way too much on compute.\n\n  That said, I should be upfront: we don't have a huge budget right now. Our CFO has been tightening things up, so anything over\n  $80K/year would be a tough sell without very clear ROI numbers.\n\n  Can you send over any case studies from companies in our space (B2B SaaS, 200-500 employees)?\n\n  Thanks,\n  Sarah\n\n  ---\n\n  From: you@yourcompany.com\n  To: sarah.chen@technovate.io\n  Subject: Following up on your data platform needs\n  Date: Feb 10, 2026\n\n  Hi Sarah,\n\n  I came across Technovate's recent Series C announcement — congrats! As you scale your data team, I wanted to reach out about how our\n  platform has helped similar B2B SaaS companies cut data infrastructure costs by 30-50% while improving query performance.\n\n  Would you be open to a brief call next week to see if there's a fit?\n\n  Best regards,\n  Alex Rivera\n  Account Executive",
-    "dealStage": "Discovery",
-    "dealAmount": "70,000                                            ",
-    "threadContext": "Cold outreach that converted to active evaluation",
-    "id": "h-2-1771719677075",
-    "timestamp": 1771719677075
-  },
-  {
-    "mode": "transcript",
-    "companyName": "BluePeak Field Services",
-    "leadScore": 85,
-    "worthChasing": true,
-    "dealRisk": "Medium",
-    "result": {
-      "leadScore": 85,
-      "leadScoreReasoning": "The buyer is actively evaluating options due to dissatisfaction with their current provider and has a clear budget and timeline for decision-making.",
-      "worthChasing": true,
-      "worthChasingReasoning": "The buyer's urgency and specific needs align well with the solution offered, indicating a strong potential for conversion.",
-      "dealRisk": "Medium",
-      "dealRiskReasoning": "The buyer is considering another provider, which introduces competition and could impact the decision-making process.",
-      "closeForecast": 75,
-      "closeForecastReasoning": "The buyer has expressed interest in a proposal and is involving a decision-maker, but competition and the need for a side-by-side comparison could delay the close.",
-      "buyingSignals": [
-        {
-          "signal": "Urgency to switch providers due to performance issues.",
-          "evidence": "Yes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work."
-        },
-        {
-          "signal": "Clear budget allocation for mobile and data services.",
-          "evidence": "We’re currently spending around $6,500 per month."
-        },
-        {
-          "signal": "Defined timeline for decision-making.",
-          "evidence": "Our contracts expire in about 75 days, so we’d like to make a decision within the next month."
-        }
-      ],
-      "objections": [
-        {
-          "objection": "Considering another provider.",
-          "evidence": "Yes, we’ve had an initial conversation with AT&T as well."
-        }
-      ],
-      "nextSteps": [
-        "Send the proposal and coverage maps to the buyer.",
-        "Schedule a follow-up meeting for Thursday afternoon with the Director of Operations.",
-        "Prepare a side-by-side coverage comparison and pricing breakdown."
-      ],
-      "followUpEmail": "Subject: Follow-Up on Our Meeting\n\nHi James,\n\nThank you for taking the time to meet with me today. I appreciate your insights regarding your current mobile and data plans. As discussed, I will send over the proposal and coverage maps shortly. I look forward to our follow-up meeting on Thursday afternoon with your Director of Operations to review the side-by-side comparison and pricing breakdown.\n\nPlease let me know if you have any questions in the meantime.\n\nBest regards,\n\n[Your Name]  \n[Your Position]  \nBluePeak Field Services  \n[Your Contact Information]",
-      "coachingSummary": "You did a great job identifying the buyer's pain points and establishing a clear timeline for decision-making. However, it would be beneficial to probe deeper into the buyer's experience with competitors to better position your offering. Additionally, ensure that you maintain engagement with the buyer to mitigate the risk of them leaning towards the competitor."
-    },
-    "transcript": "Rep:\nThanks for joining today, James. I understand you're reviewing your company’s mobile and data plans ahead of contract renewal. Can you share what’s driving that evaluation?\nBuyer (James – IT Manager):\nYes, our current carrier’s performance has been inconsistent, especially in remote areas where our technicians work. We’ve also had some unexpected billing increases over the past few months.\nRep:\nThat’s helpful. How many active lines are we talking about?\nBuyer:\nAbout 48 mobile lines and 12 data-only SIMs for tablets.\nRep:\nGot it. Are the coverage issues impacting daily operations?\nBuyer:\nYes, especially when teams can’t upload reports from job sites. It delays invoicing and sometimes affects customer satisfaction.\nRep:\nUnderstood. Have you allocated a budget range for switching providers?\nBuyer:\nWe’re currently spending around $6,500 per month. If we can improve coverage and maintain similar costs, that would make sense for us.\nRep:\nAnd who would be involved in approving a change?\nBuyer:\nI’ll handle the technical evaluation, but our Director of Operations will approve the final decision.\nRep:\nAre you speaking with other providers?\nBuyer:\nYes, we’ve had an initial conversation with AT&T as well.\nRep:\nWhat timeline are you working toward?\nBuyer:\nOur contracts expire in about 75 days, so we’d like to make a decision within the next month.\nRep:\nThat makes sense. Would it be helpful to review a side-by-side coverage comparison and pricing breakdown with your Director next week?\nBuyer:\nYes, that would be ideal. If you send over the proposal and schedule something for Thursday afternoon, I’ll include him.\nRep:\nPerfect. I’ll send that today along with coverage maps.\nBuyer:\nGreat, looking forward to reviewing it.",
-    "dealStage": "Demo",
-    "dealAmount": "$78,000 annually",
-    "id": "h-1-1771718194032",
-    "timestamp": 1771718194032
   }
 ]
