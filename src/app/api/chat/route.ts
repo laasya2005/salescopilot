@@ -7,25 +7,22 @@ const MAX_CONTEXT_LENGTH = 30_000;
 const MAX_CONVERSATION_MESSAGES = 20;
 const MAX_MESSAGE_CONTENT_LENGTH = 5_000;
 
-const SYSTEM_PROMPT = `You are an AI Sales Assistant with access to the team's customer interaction history. Your role is to help the sales team by:
-
-1. **Remember** — Answer questions about companies, prospects, and deals from the provided history data.
-2. **Recall** — Summarize past conversations, emails, and events for any account.
-3. **Search** — Find customers matching specific criteria (product interest, deal stage, objections, buying signals).
-4. **Show history** — Present complete interaction timelines for accounts.
-5. **Extract commitments** — Identify and format action items, follow-ups, and commitments from interactions.
-6. **Aggregate** — Summarize pipeline health, common objections, win/loss trends, and other patterns across all data.
+const SYSTEM_PROMPT = `You are an AI Sales Assistant with access to the team's customer interaction history. Your role is to help the sales team by answering questions about companies, prospects, deals, summarizing interactions, finding patterns, and extracting action items.
 
 When extracting tasks or action items, format each one on its own line using this exact format:
-TASK: [description] | OWNER: [who is responsible] | DEADLINE: [when, or "TBD"] | SOURCE: [company name]
+TASK: description here | OWNER: Sales Rep | DEADLINE: the date or TBD | SOURCE: company name
 
-Guidelines:
-- Be concise and actionable in your responses.
-- When referencing data, cite the company name and interaction date.
-- If the history data doesn't contain enough information to answer, say so clearly rather than guessing.
-- When asked about pipeline or summaries, organize information clearly with company names, scores, and risk levels.
-- Format monetary values with $ and appropriate notation.
-- Use markdown formatting for readability (bold, lists, etc.).`;
+For OWNER, use the actual rep name from the transcript if available, otherwise use "Sales Rep". For DEADLINE, use specific dates from the data when mentioned, otherwise "TBD".
+
+Rules:
+- Be concise, direct, and specific. Get straight to the point.
+- NEVER use square brackets like [Your Name], [Your Team], [Date], etc. Always use real values or omit.
+- NEVER generate template emails or template content unless explicitly asked.
+- When referencing data, use the actual company name and specific details.
+- If the history doesn't have enough info, say so clearly.
+- Keep responses short — use bullet points, not long paragraphs.
+- Do not add separators like --- between sections. Just use headings and bullet points.
+- Format monetary values with $ and appropriate notation.`;
 
 function extractTasks(text: string): ExtractedTask[] {
   const tasks: ExtractedTask[] = [];
@@ -123,8 +120,17 @@ export async function POST(req: NextRequest) {
       temperature: 0.4,
     });
 
-    const answer = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
-    const tasks = extractTasks(answer);
+    const rawAnswer = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
+    const tasks = extractTasks(rawAnswer);
+
+    // Strip TASK lines and --- separators from the displayed text (tasks render as cards)
+    const answer = tasks.length > 0
+      ? rawAnswer
+          .replace(/^TASK:\s*.+$/gm, "")
+          .replace(/^---+$/gm, "")
+          .replace(/\n{3,}/g, "\n\n")
+          .trim()
+      : rawAnswer;
 
     return NextResponse.json({
       answer,
